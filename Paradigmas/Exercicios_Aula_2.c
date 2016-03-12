@@ -16,10 +16,13 @@ typedef struct
 {
     int ra;
     char nome[50];
+    int cod_disciplinas[50];
 } talunos;
+
 typedef struct{
     int codigo;
     char nome[50];
+    int ra_alunos[50];
 }tdisciplinas;
 
 
@@ -49,12 +52,25 @@ void cadastro_Disciplinas(tdisciplinas disciplina){
     
 }
 
+int procura_aluno(int ra, talunos aluno){
+    if(aluno.ra == ra){
+        return 1;
+    }
+    return 0;
+}
+
+int procura_disciplina(int codigo, tdisciplinas disciplina){
+    if(disciplina.codigo == codigo){
+        return 1;
+    }
+    return 0;
+}
 
 int main(void)
 {
     talunos aluno[50];
     tdisciplinas disciplina[50];
-    
+    int ra_pesq=0, pos_aluno=0, pos_disc=0, cod_pesq=0;
     int i, verifica=1;
     
     
@@ -81,8 +97,42 @@ int main(void)
         
     }
     
-    
-    
+    verifica=1;
+    while(verifica==1)
+    {
+        printf("Digite o ra do aluno que deseja associar a uma disciplina: ");
+        __fpurge(stdin);
+        scanf("%d", &ra_pesq);
+        
+        for(i=0;i<50;i++){
+            if(procura_aluno(ra_pesq, aluno[i])==1){
+                pos_aluno = i;
+                i=50;
+                verifica = 0;
+            }
+            if(i==49){
+                printf("Aluno nao econtrado.\n");
+            }
+        }
+    }
+    while(verifica==1)
+    {
+        printf("Digite o codigo da disciplina a qual deseja inserir o aluno: ");
+        __fpurge(stdin);
+        scanf("%d", &cod_pesq);
+        
+        for(i=0;i<50;i++){
+            if(procura_disciplina(cod_pesq, disciplina[i])==1){
+                pos_disc = i;
+                i=50;
+                verifica=0;
+            }
+            if(i==49){
+                printf("Disciplina nao encontrada.\n");
+            }
+        }
+        
+    }
     
     
     return 0;
