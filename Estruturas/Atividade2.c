@@ -18,11 +18,32 @@
     (imagem em formato JPG) durante a execução do programa, demonstrando o resultado
     do teste e o correto funcionamento do programa. */
 
+typedef structs
+{
+    int ra;
+    char nome[50];
+    float nota;
+} taluno;
+
+int busca_ra(taluno aluno, int ra)
+{
+    if(aluno.ra == ra)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int cadastro_aluno(taluno aluno, )
+{
+    
+    
+}
 
 
 int main(void)
 {
-    
+    taluno aluno[100];
     
     
     
