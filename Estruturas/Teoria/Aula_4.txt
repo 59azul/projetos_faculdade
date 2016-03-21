@@ -1,0 +1,88 @@
+        Outros tipos de listas
+a)Listas com cabeça fixa
+Neste tipo de lista há um nó inicial(head) que não faz parte da lista lógica.
+Nesse caso não é necessário testar se a lista é vazia.
+
+[]->[1]->[2]->[3]->...->[n]->NULL
+
+b)Listas circulares
+O último elemento é ligado ao primeiro.
+
+[1]->[2]->...->[n]->[1]
+
+c)Listas duplamente ligadas
+Para permitir que a lista seja percorrida nos dois sentidos e também facilitar
+operações como a remoção de nós, cada nó armazena o endereço do próximo nó e do
+nó anterior.
+
+[1]<->[2]<->...<->[n]
+
+struct tno{
+    int info;
+    //demais campos
+    struct tno *prox, *ant; // Para listas duplamente ligadas
+};
+
+d)Listas híbridas ou generalizadas
+São listas de listas (de listas de listas...). Neste tipo de listas
+multidimensionais podemos, por exemplo, ter uma lista de tipos(vertical no esquema
+a seguir) e outra de itens daquele tipo(horizontal)
+
+[1]->{1}->{5}
+ |
+ v
+[2]->{4}
+ |
+ v
+[3]->{8}->{6}->{2}->{3}
+ |
+ v
+...
+ |
+ v
+[n]->{7}
+
+[] - Listas de tipos
+{} - Listas de itens
+
+Declaração de tipos:
+struct tipo{
+    int cod;
+    struct tipo *prox;
+    struct mus *lista;
+};
+
+struct mus{
+    int info;
+    struct mus *prox;
+}
+
+
+e)Listas costuradas
+São listas transversais. Podem impor algum tipo alternativo de ordenação(ordem
+crescente, por exemplo) ou unir nós com algum tipo de atributo(páginas livres em
+sistemas operacionais, músicas de um certo interprete quando os tipos referem-se
+a gênero musical e os itens referem-se a músicas, etc.). Um exemplo está
+representado na lista generalizada ordenando numericamente os nós.
+
+
+f)Combinações
+É possível combinar os vários tipos de listas, dando origem a listas:
+    -duplamente ligadas com cabeça fixa;
+    -com cabeça fixa circular;
+    -costurada duplamente ligada;
+    -...
+
+1)Função que verifique se um nó de valor n pertence ou não à lista.
+
+int pertence(no *inicio, int n)
+{
+    while((inicio->cod!)=n)
+    {
+        if(inicio->prox != NULL)
+        {
+            inicio = inicio->prox;
+        }
+
+    }
+}
