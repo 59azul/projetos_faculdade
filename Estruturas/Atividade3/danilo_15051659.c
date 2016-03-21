@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef taluno aluno;
+typedef struct taluno aluno;
 struct taluno{
     int ra;
     char nome[50];
-    taluno *prox;
+    struct taluno *prox;
 };
 
 
 int main(void)
 {
-
+    aluno aux;
 
 
     return 0;
