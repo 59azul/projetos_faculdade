@@ -14,12 +14,27 @@ void cadastroAluno(aluno *inicio)
     int ra;
     
     printf("Digite o ra do aluno a ser cadastrado: ");
+    scanf("%d", &ra);
+    
+    
+    inicio->ra = ra;
+    
+    printf("Digite o nome do aluno: ");
+    __fpurge(stdin);
+    fgets(inicio->nome, 50, stdin);
+    
+    
+    
 
 }
 
 int main(void)
 {
-    aluno aux;
-
+    aluno *aux;
+    
+    aux = (aluno *)malloc(sizeof (aluno));
+    
+    cadastroAluno(aux);
+    
     return 0;
 }
