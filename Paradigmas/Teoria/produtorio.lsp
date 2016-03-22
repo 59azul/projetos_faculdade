@@ -1,6 +1,6 @@
-(defun produtorio (function batata) a b
-    (if (> b a)
+(defun produtorio (batata a b)
+    (if (> a b)
+    1
     (* (funcall batata a) (produtorio batata (1+ a) b))
-    (* a b)
     )
 )
