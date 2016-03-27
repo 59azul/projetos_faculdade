@@ -28,28 +28,53 @@ void cadastroAluno(aluno *inicio)
 
 void procuraCadastroAluno(aluno *inicio) // Função procura o último elemento da lista alunos
 {
-    aluno *aux;
-    aux=inicio->prox;
-    if(aux)
+    aluno *aux, *aux2;
+    
+    if(!inicio->prox)
     {
-        while(aux)
-        {
-            aux = aux->prox;
-        }
+        inicio->prox = (aluno *)malloc(sizeof (aluno));
+    }
+    aux = inicio->prox;
+    
+    while(aux)
+    {
+        aux2 = aux;
+        aux = aux->prox;
         
     }
-    aux->prox = (aluno *)malloc(sizeof (aluno));
+    aux2->prox = (aluno *)malloc(sizeof (aluno));
     
-    cadastroAluno(aux->prox);
+    cadastroAluno(aux2->prox);
 }
 
 int main(void)
 {
-    aluno *aux;
+    aluno *inicio;
+    int escolha = 0;
     
-    aux = (aluno *)malloc(sizeof (aluno));
+    printf("Deseja cadastrar um aluno? 1-sim, 0-nao");
+    scanf("%d", &escolha);
     
-    cadastroAluno(aux);
+    if(escolha)
+    {
+        inicio = (aluno *)malloc(sizeof (aluno));
+        cadastroAluno(inicio);
+        
+        printf("Deseja cadastar mais um aluno?");
+        scanf("%d", &escolha);
+        
+    }
+    
+    while(escolha)
+    {
+        procuraCadastroAluno(inicio);
+        
+        printf("Deseja cadastar mais um aluno?");
+        scanf("%d", &escolha);
+        
+        
+        
+    }
     
     
     
