@@ -26,6 +26,14 @@ void cadastroAluno(aluno *inicio)
     inicio->prox=NULL;
 }
 
+void ordenarLista(aluno *inicio)
+{
+    aluno *aux;
+    aluno *aux2;
+    
+    
+}
+
 void procuraCadastroAluno(aluno *inicio) // Função procura o último elemento da lista alunos
 {
     aluno *aux, *aux2;
