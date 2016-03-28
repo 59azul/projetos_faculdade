@@ -1,0 +1,32 @@
+1. Implementar uma função recursiva que insira um nó de valor n no final de uma
+lista ligada. Retorno: 1-inserção OK, 0-heap overflow
+
+int insere(no **inicio, int n)
+{
+
+    if(!*inicio)
+    {
+        (*inicio) = (no *)malloc(sizeof (no));
+        if(!*inicio) return 0;
+        (*inicio)->info = n;
+        (*inicio)->prox = NULL;
+        return(1);
+    }
+    return (insere(&(*inicio)->prox, n))
+}
+
+2. Dados uma lista e um inteiro n>0, implementar uma função que retorne a quan-
+tidade de nós cujos valores são múltiplos de n.
+
+int mult(no *inicio, int n)
+{
+
+}
+
+3. Dadas duas listas ligadas, implemente uma função que verifique se as listas
+são iguais(mesmos valores nas mesmas posições).
+
+int iguais(no *l1, no *l2)
+{
+
+}
