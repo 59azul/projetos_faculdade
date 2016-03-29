@@ -10,6 +10,15 @@ struct taluno{
 
 // para remover guardar o anterior
 
+int tamanhoLista(aluno *inicio)
+{
+    if(inicio->prox)
+    {
+        return tamanhoLista(inicio->prox)+1;
+    }
+    return 0;
+}
+
 void cadastroAluno(aluno *inicio)
 {
     int ra;
@@ -31,6 +40,14 @@ void ordenarLista(aluno *inicio)
     aluno *aux;
     aluno *aux2;
     
+    
+    
+    if(inicio->prox)
+    {
+        
+        
+        
+    }
     
 }
 
@@ -77,14 +94,12 @@ int main(void)
     {
         procuraCadastroAluno(inicio);
         
-        printf("Deseja cadastar mais um aluno?");
+        printf("Deseja cadastrar um aluno? 1-sim, 0-nao");
         scanf("%d", &escolha);
         
         
         
     }
-    
-    
     
     
     return 0;
