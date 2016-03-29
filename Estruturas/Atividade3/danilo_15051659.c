@@ -39,14 +39,28 @@ void ordenarLista(aluno *inicio)
 {
     aluno *aux;
     aluno *aux2;
+    aux = inicio->prox;
+    aux2= aux->prox;
     
-    
-    
-    if(inicio->prox)
+    if(aux)
     {
-        
-        
-        
+        if(aux2)
+        {
+            while(aux2->prox)
+            {
+    
+                if(aux->ra > aux2->ra)
+                {
+                    aux2->ra = aux->ra + aux2->ra;
+                    aux->ra = aux2->ra - aux->ra;
+                    aux2->ra = aux2->ra - aux->ra;
+                }
+                aux->prox= aux2->prox;
+                aux2->prox = aux2->prox->prox;
+                
+                
+            }
+        }
     }
     
 }
@@ -97,7 +111,7 @@ int main(void)
         printf("Deseja cadastrar um aluno? 1-sim, 0-nao");
         scanf("%d", &escolha);
         
-        
+        ordenarLista(inicio);
         
     }
     
