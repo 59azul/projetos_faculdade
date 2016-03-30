@@ -65,6 +65,24 @@ void ordenarLista(aluno *inicio)
     
 }
 
+void removerCadastro(aluno *inicio, int num)
+{
+    aluno *aux, *aux2;
+    aux = inicio->prox;
+    aux2 = aux->prox;
+    
+    while(aux2->ra != num && aux2)
+    {
+        aux=aux2;
+        aux2=aux->prox;
+    }
+    
+    aux->prox = aux2->prox;
+    
+    void free(void *aux2);
+    
+}
+
 void procuraCadastroAluno(aluno *inicio) // Função procura o último elemento da lista alunos
 {
     aluno *aux, *aux2;
