@@ -10,7 +10,7 @@ struct taluno{
 
 // para remover guardar o anterior
 
-int tamanhoLista(aluno *inicio)
+int tamanhoLista(aluno *inicio) // Função que mede o tamanho da lista
 {
     if(inicio->prox)
     {
@@ -19,7 +19,7 @@ int tamanhoLista(aluno *inicio)
     return 0;
 }
 
-void cadastroAluno(aluno *inicio)
+void cadastroAluno(aluno *inicio) // Função que cadastra o aluno no final da lista
 {
     int ra;
     
@@ -32,7 +32,7 @@ void cadastroAluno(aluno *inicio)
     __fpurge(stdin);
     fgets(inicio->nome, 50, stdin);
     
-    inicio->prox=NULL;
+    inicio->prox=NULL; // 
 }
 
 void ordenarLista(aluno *inicio)
@@ -104,6 +104,24 @@ void procuraCadastroAluno(aluno *inicio) // Função procura o último elemento 
     cadastroAluno(aux2->prox);
 }
 
+void buscaRA(aluno *inicio, int ra)
+{
+    
+}
+
+void exibirLista(aluno *inicio)
+{
+    aluno *aux;
+    aux=inicio;
+    
+    while(aux->prox)
+    {
+        printf("%d\n", aux->ra);
+        
+        
+    }
+}
+
 int main(void)
 {
     aluno *inicio;
@@ -132,6 +150,9 @@ int main(void)
         ordenarLista(inicio);
         
     }
+    
+    
+    
     
     
     return 0;
