@@ -19,20 +19,20 @@ int tamanhoLista(aluno *inicio) // Função que mede o tamanho da lista
     return 0;
 }
 
-void cadastroAluno(aluno *inicio) // Função que cadastra o aluno no final da lista
+void cadastroAluno(aluno *no) // Função que cadastra o aluno no final da lista
 {
     int ra;
     
     printf("Digite o ra do aluno a ser cadastrado: ");
     scanf("%d", &ra);
     
-    inicio->ra = ra;
+    no->ra = ra;
     
     printf("Digite o nome do aluno: ");
     __fpurge(stdin);
-    fgets(inicio->nome, 50, stdin);
+    fgets(no->nome, 50, stdin);
     
-    inicio->prox=NULL; // 
+    no->prox=NULL; // 
 }
 
 void ordenarLista(aluno *inicio)
@@ -102,6 +102,8 @@ void procuraCadastroAluno(aluno *inicio) // Função procura o último elemento 
     aux2->prox = (aluno *)malloc(sizeof (aluno));
     
     cadastroAluno(aux2->prox);
+    
+    ordenarLista(inicio);
 }
 
 void buscaRA(aluno *inicio, int ra)
@@ -116,10 +118,13 @@ void exibirLista(aluno *inicio)
     
     while(aux->prox)
     {
-        printf("%d\n", aux->ra);
-        
-        
+        printf("%d", aux->ra);
+        printf("%s\n", aux->nome);
+        aux = aux->prox;
     }
+    
+    
+    
 }
 
 int main(void)
@@ -147,11 +152,11 @@ int main(void)
         printf("Deseja cadastrar um aluno? 1-sim, 0-nao");
         scanf("%d", &escolha);
         
-        ordenarLista(inicio);
+        //ordenarLista(inicio);
         
     }
     
-    
+    exibirLista(inicio);
     
     
     
