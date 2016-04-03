@@ -1,0 +1,6 @@
+(defun listar (a b)
+    (if (< a b)
+        (cons a (listar (1+ a) b))
+        (cons a NIL)
+    )
+)
