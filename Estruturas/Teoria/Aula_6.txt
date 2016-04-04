@@ -1,0 +1,29 @@
+                Filas
+    Filas são estruturas de dados que implementam a estratégia FIFO("first in,
+first out"), ou seja, os elementos inseridos primeiro são os primeiros a serem
+removidos.
+    As filas são amplamente utilizadas em ambientes de simulação(como em filas
+de banco e preços de pedágio) e em aplicações cliente-servidor, onde as requisi-
+ções são inseridas em uma fila até que sejam atendidas.
+    Podem ser implementadas através de listas ligadas ou vetores com inserções e
+remoções em extremos opostos(usualmente inserções no final e remoções no ínicio).
+
+                Exercícios
+    1) Implementar uma função que insere um nó de valor n no final de uma lista
+ligada com ponteiros de ínicio e fim.
+Retorno:    1 - inserção OK
+            0 - heap overflow
+
+    2) Implementar uma função que remove um nó no início de uma fila implementada
+como uma lista ligada simples com ponteiros de início e fim.
+Retorno:    valor removido
+            -1 - lista vazia
+
+    3) Implementar uma função que verifica se a fila dos exercícios anteriores
+está ou  não vazia.
+Retorno:    1 - fila vazia
+            0 - fila não vazia
+
+    4) Função que retorna o valor do primeiro elemento da fila dos exercícios
+anteriores.
+Retorno:    -1 - fila vazia
