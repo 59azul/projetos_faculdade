@@ -13,6 +13,28 @@ remoções em extremos opostos(usualmente inserções no final e remoções no �
 ligada com ponteiros de ínicio e fim.
 Retorno:    1 - inserção OK
             0 - heap overflow
+no *inicio, *fim;
+fim=inicio-NULL;
+
+int insere_fila(no **inicio, no **fim, int n)
+{
+    if(*inicio==NULL)
+    {
+        (*fim)=(*inicio)=(struct no *)malloc(sizeof (no));
+
+        if(!(*inicio)) return (0);
+        (*inicio)->info =  n;
+        (*inicio)->prox = NULL;
+        return (1);
+    }
+    (*fim)->prox = (no *)malloc(sizeof (no));
+    if((*fim)->prox == NULL) return (0);
+    (*fim) = (*fim)->prox;
+    (*fim)->info=n;
+    (*fim)->prox = NULL;
+    return (1);
+}
+
 
     2) Implementar uma função que remove um nó no início de uma fila implementada
 como uma lista ligada simples com ponteiros de início e fim.
@@ -27,3 +49,6 @@ Retorno:    1 - fila vazia
     4) Função que retorna o valor do primeiro elemento da fila dos exercícios
 anteriores.
 Retorno:    -1 - fila vazia
+
+    5) Refazer os exercícios 1-4 usando uma fila implementada através de um
+vetor.
