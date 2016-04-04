@@ -41,6 +41,16 @@ como uma lista ligada simples com ponteiros de início e fim.
 Retorno:    valor removido
             -1 - lista vazia
 
+int remove_fila(**inicio)
+{
+    if(!(*inicio)) return (-1);
+    no *aux=(*inicio);
+    int n=aux->info;
+    (*inicio)=(*inicio)->prox;
+    free(aux);
+    return (n);
+}
+
     3) Implementar uma função que verifica se a fila dos exercícios anteriores
 está ou  não vazia.
 Retorno:    1 - fila vazia
