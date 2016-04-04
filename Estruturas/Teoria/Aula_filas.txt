@@ -65,5 +65,10 @@ int vazia(no *inicio)
 anteriores.
 Retorno:    -1 - fila vazia
 
+int primeiro(no *inicio)
+{
+    return inicio? inicio->info:-1;
+}
+
     5) Refazer os exercícios 1-4 usando uma fila implementada através de um
 vetor.
