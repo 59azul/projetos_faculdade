@@ -56,6 +56,11 @@ está ou  não vazia.
 Retorno:    1 - fila vazia
             0 - fila não vazia
 
+int vazia(no *inicio)
+{
+    return inicio?0:1;
+}
+
     4) Função que retorna o valor do primeiro elemento da fila dos exercícios
 anteriores.
 Retorno:    -1 - fila vazia
