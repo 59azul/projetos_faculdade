@@ -58,7 +58,7 @@ Retorno:    1 - fila vazia
 
 int vazia(no *inicio)
 {
-    return inicio?0:1;
+    return inicio?0:1;  // ?-if      :-else   
 }
 
     4) Função que retorna o valor do primeiro elemento da fila dos exercícios
