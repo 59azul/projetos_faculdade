@@ -18,32 +18,85 @@ struct no {
  
 // Questao 1
 void insereInicio (No **pLista, int n) {
-
+    No *aux;
+    aux = (No *)malloc(sizeof (No));
+    aux->chave = n;
+    aux->prox = *pLista;
+    *pLista = aux;
 }
 
 // Questao 2
 void insereFim (No **pLista, int n) {
-  
+    No *aux;
+    aux=*pLista;
+    if(aux->prox){
+        
+        while(aux->prox){
+            aux=aux->prox;
+        }
+        
+    }
+    aux->prox = (No *)malloc(sizeof (No));
+    aux->prox->chave = n;
 }
 
 // Questao 3
 void insereK (No **pLista, int n, int k) {
-
+    No *aux;
+    aux = *pLista;
+    
+    while(k){
+        aux=aux->prox;
+        k--;
+    }
+    
+    No *aux2;
+    aux2 = (No *)malloc(sizeof (No));
+    aux2->chave = aux->chave;
+    aux2->prox = aux->prox;
+    aux->prox = aux2;
+    aux->chave = n;
 }
 
 // Questao 4
 void exibePrimeiro (No *Lista) {
-
+    if(Lista){
+        printf("%d", Lista->chave);
+    }
+    
 }
 
 // Questao 5
 void exibeUltimo (No *Lista){
-
+    No *aux;
+    aux=Lista;
+    
+    if(Lista){
+        if(aux->prox){
+            
+            while(aux->prox){
+                aux=aux->prox;
+            }
+            
+        }
+        
+        printf("%d", aux->chave);
+    }
+    
 }
 
 // Questao 6
 void exibeK (No *Lista, int k) {
-
+    No *aux;
+    aux = Lista;
+    
+    if(Lista){
+        while(k){
+            aux=aux->prox;
+            k--;
+        }
+        printf("%d", aux->chave);
+    }
 }
 
 // Questao 7
