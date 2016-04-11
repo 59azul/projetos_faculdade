@@ -1,0 +1,50 @@
+        Pilhas
+Pilhas ("stacks") são estruturas de dados que funcionam segundo a estratégia LIFO("last in, first out"), ou seja, o último elemento a entrar será o primeiro a sair.
+As pilhas possuem duas operações básicas: inerção ("PUSH") e remoção ("POP").
+Podem ser implementadas através de listas ligadas com inserção e remoção no mesmo extremo(ex. no início da lista) ou através de vetores, por exemplo.
+
+
+1) Implemente uma função que insira um elemento de valor n em uma pilha implementada como vetor.
+Retorno:    1 - inserção OK
+            -1 - pilha cheia
+
+int push(int v[], int *topo, int n){
+    if(*topo < MAX){
+        v[*topo] = n;
+        *topo++;
+        return 1;
+    }
+    return -1;
+}
+
+2) Remoção de um elemento de uma pilha implementada como vetor.
+Retorno:    valor removido
+            -1 - pilha vazia
+
+int pop(int v[], int *topo){
+    if(*topo > 0){
+        *topo--;
+        return v[*topo];
+    }
+    return -1;
+}
+
+3) Função que verifica se uma pilha está ou não vazia.
+Retorno:    1 - vazia
+            0 - não vazia
+
+int vazia(int topo){
+    if(topo == 0){
+        return 1;
+    }
+    return 0;
+}
+
+4) Função que retorna o valor do elemento do topo da pilha ou -1 se a pilha estiver vazia.
+
+int primeiro(int v[], int topo){
+    if(v[topo]==0){
+        return -1;
+    }
+    return v[topo];
+}
