@@ -101,22 +101,80 @@ void exibeK (No *Lista, int k) {
 
 // Questao 7
 int procuraN (No *Lista, int n) {
-
+    No *aux;
+    aux=Lista;
+    if(Lista){
+        if(Lista->chave == n){
+            return 1;
+        }
+        while(aux->prox){
+            aux=aux->prox;
+            if(aux->chave==n){
+                return 1;
+            }
+        }
+        return 0;
+    }
+    return 0;
 }
 
 // Questao 8
 int quantidade (No *Lista) {
-
+    int contador=0;
+    No *aux;
+    aux = Lista;
+    if(Lista){
+        contador=1;
+        if(aux->prox){
+            while(aux->prox){
+                aux=aux->prox;
+                contador++;
+            }
+            return contador;
+        }
+        return 1;
+    }
+    return 0;
 }
 
 // Questao 9
 int soma (No *Lista) {
-
+    int contador=0;
+    No *aux;
+    aux = Lista;
+    if(Lista){
+        contador=aux->chave;
+        if(aux->prox){
+            while(aux->prox){
+                aux=aux->prox;
+                contador=contador + aux->chave;
+            }
+            return contador;
+        }
+        return aux->chave;
+    }
+    return 0;
 }
 
 // Questao 10
 float media (No *Lista) {
-
+    int contador=0, soma;
+    No *aux;
+    aux = Lista;
+    if(Lista){
+        contador=1;
+        soma=aux->chave;
+        if(aux->prox){
+            while(aux->prox){
+                aux=aux->prox;
+                contador++;
+                soma = soma + aux->chave;
+            }
+            return (soma/contador);
+        }
+        return soma/contador; 
+    }
+    return 0;
 }
 
 // Questao 11
