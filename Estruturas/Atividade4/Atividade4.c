@@ -5,6 +5,8 @@
  * Para compilar com o DEBUG ativado:
  * $ gcc -DDEBUG -g Atividade4.c -o Atividade4
  * 
+ * Danilo Luís Lopes Raymundo Paixão
+ * RA: 15051659
  */
 
 #include<stdio.h>
@@ -179,22 +181,71 @@ float media (No *Lista) {
 
 // Questao 11
 void excluiPrimeiro (No **pLista) {
-
+    No *aux;
+    aux = *pLista;
+    aux=aux->prox;
+    free(*pLista);
+    *pLista = aux;
 }
 
 // Questao 12
 void excluiUltimo (No **pLista) {
-
+    No *aux, *aux2;
+    aux = *pLista;
+    
+    if(aux){
+        aux2=aux->prox;
+        while(aux2->prox){
+            aux=aux2;
+            aux2=aux->prox;
+            
+        }
+        aux->prox = NULL;
+        free(aux2);
+    }
+    
 }
 
 // Questao 13
 void excluiK (No **pLista, int k) {
-
+    No *aux, *aux2;
+    aux = *pLista;
+    aux2=aux->prox;
+    
+    if(*pLista){
+        if(k>0){
+            
+            while(k-1){
+                aux=aux->prox;
+                aux2=aux2->prox;
+                k--;
+            }
+            aux->prox=aux2->prox;
+            free(aux2);
+        }
+    }
+    
 }
 
 // Questao 14
 void excluiN (No **pLista, int n) {
-
+    No *aux, *aux2;
+    aux = *pLista;
+    aux2=aux->prox;
+    
+    if(aux->chave == n){
+        aux=aux->prox;
+        free(*pLista);
+        *pLista = aux;
+    }
+    while(aux2){
+        if(aux2->chave == n){
+            aux->prox=aux2->prox;
+            free(aux2);
+        }
+        aux=aux->prox;
+        aux2=aux->prox;
+    }
 }
 
 // Cria uma lista vazia
