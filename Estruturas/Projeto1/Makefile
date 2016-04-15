@@ -1,13 +1,34 @@
-all: prog
+### Makefile ###
 
-prog: matriz.o lista.o
-    gcc -Wall main.c lista.o matriz.o -o prog
+# Nome do compilador
+CC = gcc
 
-lista.o: lista.c
-    gcc -Wall -c lista.c
+# Opções de compilação
+CFLAGS = -Wall -g
 
-matriz.o: matriz.c
-    gcc -Wall -c matriz.c
+# Wildcard para arquivos fonte
+FONTES = $(wildcard *.c)
 
-run: prog
-    ./prog
+# Lista dos arquivos-objeto usando lista de arquivos fonte
+OBJETOS = $(FONTES:.c=.o)
+
+# Nome do arquivo executável
+EXECUTAVEL = prog
+
+# all: prog
+all: $(EXECUTAVEL)
+
+# prog: lista.o matriz.o main.o
+#	gcc -o prog lista.o matriz.o main.o
+$(EXECUTAVEL): $(OBJETOS)
+	$(CC) -o $@ $^
+
+# main.o: ...
+%.o: %.c
+	$(CC) -c $(CFLAGS) $^
+
+clean:
+	rm -rf *.o
+
+run: $(EXECUTAVEL)
+	./$(EXECUTAVEL)
