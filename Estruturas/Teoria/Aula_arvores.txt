@@ -1,0 +1,54 @@
+                Árvores
+Árvores são estruturas de dados compostas por zero ou mais elementos denominados
+nós. À exceção de um nó(RAIZ), todos os nós possuem um antecessor(PAI) e zero
+ou mais sucessores(FILHOS). Nós sem filhos são denominados FOLHAS. O número
+máximo de filhos determina a ORDEM de uma árvore e a quantidade de níveis(ou
+tamanho do caminho máximo entre raiz e folhas) determina sua ALTURA.
+
+                Árvores binárias de busca
+São árvores de ordem 2(binárias), onde os nós à esquerda possuem valores menores
+que o da raiz, e os nós à direita possuem valores maiores, recusivamente.
+
+Definição do nó:
+struct no{ int info;
+    struct no *esq, *dir;
+};
+.
+.
+.
+struct no *raiz=NULL; // inicialização
+// Função que insere um nó de valor n em
+// uma árvore binária de busca(1-OK, 0-heap overflow)
+int insere(int n, struct no **raiz){
+    if(!(*raiz)){
+        (*raiz)=(struct no *)malloc(sizeof (struct no *));
+        if(!(*raiz)) return 0;
+        (*raiz)->info = n;
+        (*raiz)->dir = (*raiz)->esq = NULL;
+        return 1;
+    }
+    if( n < (*raiz)->info) return (insere(n, &(*raiz)->esq) );
+    return (insere(n, &(*raiz)->dir) );
+    /*
+    if(*raiz->info){
+        if(n>(*raiz)->info){
+            if(!(*raiz)->dir){
+                (*raiz)->dir = (struct no *)malloc(sizeof (struct no *));
+            }
+
+        }
+        insere(n, (*raiz)->esq);
+        return 1;
+    }
+    */
+}
+
+// Função que verifica se o nó de valor n
+// pertence ou não à árvore binária de busca
+// (1-pertence, 0-não pertence)
+int pertence(int n, struct no *raiz){
+    if(!raiz) return 0;
+    if(raiz->info==n) return 1;
+    if(n<raiz->info) return (pertence(n, raiz->esq));
+    return (pertence(n, raiz->dir));
+}
