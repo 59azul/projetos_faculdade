@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int matriz(void)
+int criarMatriz(int linhas, int colunas)
 {
+    
+    
     
     
     return 0;
