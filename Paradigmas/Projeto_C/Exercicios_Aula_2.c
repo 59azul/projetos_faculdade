@@ -31,7 +31,7 @@ struct disciplinas{
 };
 
 struct professores{
-    int codProfessores;
+    int cod;
     char nome[50];
     int codDisciplinas[50];
 };
@@ -44,6 +44,11 @@ void cadastraAluno(taluno *aluno, char nomeAluno[50], int ra){
 void cadastraDisciplina(tdisciplinas *disciplina, char nomeDisciplina[50], int cod){
     strcpy(disciplina->nome, nomeDisciplina);
     disciplina->cod = cod;
+}
+
+void cadastraProfessor(tprofessores *professor, char nomeProfessor[50], int cod){
+    strcpy(professor->nome, nomeProfessor);
+    professor->cod = cod;
 }
 
 void imprimeAlunos(taluno alunos[]){
@@ -59,6 +64,137 @@ void imprimeAlunos(taluno alunos[]){
     }
 }
 
+void imprimeDisciplinas(tdisciplinas disciplinas[]){
+    int contador=0;
+    
+    while(contador<50){
+        if(disciplinas[contador].cod==0){
+            break;
+        }
+        printf("Codigo: %d\n", disciplinas[contador].cod);
+        printf("Nome: %s\n", disciplinas[contador].nome);
+        contador++;
+    }
+}
+
+void imprimeProfessores(tprofessores professores[]){
+    int contador=0;
+    
+    while(contador<50){
+        if(professores[contador].cod==0){
+            break;
+        }
+        printf("Codigo: %d\n", professores[contador].cod);
+        printf("Nome: %s\n", professores[contador].nome);
+        contador++;
+    }
+}
+
+void matriculaAlDiscTodos(taluno alunos[], tdisciplinas disciplinas[]){
+    int cont=0,i=0;
+    
+    while(cont<50){
+        if(alunos[cont].ra==0){ // Sai do loop quando encontra o último aluno cadastrado
+            break;
+        }
+        while(i<50){
+            if(disciplinas[i].cod==0){ // Sai do loop quando encontra a última disciplina cadastrada
+                break;
+            }
+            alunos[cont].codDisciplinas[i] = disciplinas[i].cod;
+            
+            i++;
+        }
+        
+        i=0;
+        cont++;
+    }
+}
+
+void imprimeAlDisc(taluno aluno, tdisciplinas disciplinas[]){
+    int cont=0, i=0;
+    
+    while(cont <50){
+        if(aluno.codDisciplinas[cont]==0){
+            break;
+        }
+        while(i<50){
+            if(disciplinas[i].cod == aluno.codDisciplinas[cont]){
+                printf("Codigo da disciplina: %d\n", disciplinas[i].cod);
+                printf("Nome da disciplina: %s\n", disciplinas[i].nome);
+                break;
+            }
+            
+            i++;
+        }
+        i=0;
+        cont++;
+    }
+    
+    
+}
+
+void matriculaAlDisc(taluno alunos[], tdisciplinas disciplinas[]){
+    int ra,cod, numAluno, numDisciplina, i=0;
+    
+    printf("Digite o ra do aluno a ser matriculado: ");
+    __fpurge(stdin);
+    // fflush(stdin);
+    scanf("%d", &ra);
+    printf("Digite o codigo da disciplina em que ele sera matriculado: ");
+    __fpurge(stdin);
+    // fflush(stdin);
+    scanf("%d", &cod);
+    
+    numAluno = procuraAluno(alunos, ra);
+    
+    
+    if( (numAluno>=0) ){
+        while(i<50){
+            if(alunos[numAluno].codDisciplinas[i]==0){
+                alunos[numAluno].codDisciplinas[i] = cod;
+                break;
+            }
+            
+            i++;
+        }
+    }
+    
+    
+}
+
+int procuraDisciplina(tdisciplinas disciplinas[], int cod){
+    int i=0;
+    
+    while(i<50){
+        if(disciplinas[i].cod==0){
+            break;
+        }
+        if(disciplinas[i].cod==cod){
+            return i;
+        }
+        
+        i++;
+    }
+    return -1;
+}
+
+int procuraAluno(taluno alunos[], int cod){
+    int i=0;
+    
+    while(i<50){
+        if(alunos[i].ra==0){
+            break;
+        }
+        if(alunos[i].ra==cod){
+            return i;
+        }
+        
+        i++;
+    }
+    return -1;
+}
+
 int main(void){
     int opcao=1;
     taluno alunos[50];
@@ -66,7 +202,7 @@ int main(void){
     tprofessores professores[50];
     char nomeDigitado[50];
     int  codDigitado;
-    int contAlunos=0, contDisciplinas=0;
+    int contAlunos=0, contDisciplinas=0, contProfessor=0;
     
     while(opcao != 0){
         do {
@@ -74,46 +210,80 @@ int main(void){
             printf("(0) Finalizar o programa\n");
             printf("(1) Cadastrar alunos\n");
             printf("(2) Cadastrar disciplinas\n");
-            printf("(3) Realizar a matricula dos alunos cadastrados em disciplinas\n");
-            printf("(4) Imprimir a lista de disciplinas de um aluno\n");
-            printf("(5) Imprimir a lista de alunos em uma disciplina\n");
-            printf("(6) Matricular todos os alunos em todas as disciplinas\n");
-            printf("(7) Vincular lista de professores a uma lista de disciplinas\n");
-            printf("(8) Cancelar a matricula de todos os alunos em todas as disciplinas\n");
-            printf("(9) Remover o vinculo de cada um dos professores a todas as disciplinas\n");
+            printf("(3) Cadastrar professores\n");
+            printf("(4) Realizar a matricula dos alunos cadastrados em disciplinas\n");
+            printf("(5) Imprimir a lista de disciplinas de um aluno\n");
+            printf("(6) Imprimir a lista de alunos em uma disciplina\n");
+            printf("(7) Matricular todos os alunos em todas as disciplinas\n");
+            printf("(8) Vincular lista de professores a uma lista de disciplinas\n");
+            printf("(9) Cancelar a matricula de todos os alunos em todas as disciplinas\n");
+            printf("(10) Remover o vinculo de cada um dos professores a todas as disciplinas\n");
 	    printf("Opcao: ");
             scanf("%d", &opcao);
 	    printf("\n");
-            if ((opcao<0) || (opcao>10))
+            if ((opcao<0) || (opcao>11))
                 printf("Opcao invalida!\n");
-        } while ((opcao<0) || (opcao>10));
+        } while ((opcao<0) || (opcao>11));
         switch (opcao){
-            case 0:
+            case 0: // Finaliza o programa caso seja escolhida a opção 0
                 printf("Finalizando o programa.\n");
                 return 0;
-            case 1:
+            case 1: // Cadastra um aluno através de uma função
                 printf("Digite o ra do aluno a ser cadastrado: ");
                 __fpurge(stdin);
+                // fflush(stdin);
                 scanf("%d", &codDigitado);
                 printf("Digite o nome do aluno a ser cadastrado: ");
                 __fpurge(stdin);
+                // fflush(stdin);
                 fgets(nomeDigitado, 50, stdin);
                 cadastraAluno(&alunos[contAlunos], nomeDigitado, codDigitado);
                 contAlunos++;
                 break;
-            case 2:
+            case 2: // Cadastra uma disciplina através de uma função
                 printf("Digite o codigo da disciplina: ");
                 __fpurge(stdin);
+                // fflush(stdin);
                 scanf("%d", &codDigitado);
                 printf("Digite o nome da disciplina a ser cadastrada: ");
                 __fpurge(stdin);
+                // fflush(stdin);
                 fgets(nomeDigitado, 50, stdin);
                 cadastraDisciplina(&disciplinas[contDisciplinas], nomeDigitado, codDigitado);
                 contDisciplinas++;
                 break;
-            
-            case 10:
+            case 3: // Cadastra um professor através de uma função
+                printf("Digite o codigo do professor: ");
+                __fpurge(stdin);
+                // fflush(stdin);
+                scanf("%d", &codDigitado);
+                printf("Digite o nome do professor a ser cadastrado: ");
+                __fpurge(stdin);
+                // fflush(stdin);
+                fgets(nomeDigitado, 50, stdin);
+                cadastraProfessor(&disciplinas[contProfessor], nomeDigitado, codDigitado);
+                contProfessor++;
+                break;
+            case 4:
+                matriculaAlDisc(alunos, disciplinas);
+                break;
+            case 5:
+                printf("Digite o ra do aluno: ");
+                __fpurge(stdin);
+                // fflush(stdin);
+                scanf("%d", &codDigitado);
+                codDigitado = procuraAluno(alunos, codDigitado);
+                if(codDigitado>=0){
+                    imprimeAlDisc(alunos[codDigitado], disciplinas);
+                }
+                break;
+            case 7:
+                matriculaAlDiscTodos(alunos, disciplinas);
+                break;
+            case 11:    // Imprime as listas de alunos, professores e disciplinas para debug
                 imprimeAlunos(alunos);
+                imprimeDisciplinas(disciplinas);
+                imprimeProfessores(professores);
                 break;
         }
         
