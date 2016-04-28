@@ -130,7 +130,23 @@ void imprimeAlDisc(taluno aluno, tdisciplinas disciplinas[]){
         i=0;
         cont++;
     }
+}
+
+void imprimeDiscAl(taluno alunos[], int cod){
+    int i=0, j=0;
     
+    for(i=0;i<50;i++){
+        if(alunos[i].ra==0) break;
+        for (j = 0; j < 50; j++) {
+            if(alunos[i].codDisciplinas[j]==cod){
+                printf("RA do aluno: %d\n", alunos[i].ra);
+                printf("Nome do aluno: %s\n", alunos[i].nome);
+                break;
+            }
+        }
+        
+        
+    }
     
 }
 
@@ -195,6 +211,47 @@ int procuraAluno(taluno alunos[], int cod){
     return -1;
 }
 
+void vincProfDisc(tdisciplinas disciplinas[], tprofessores professores[]){
+    int cont=0,i=0;
+    
+    while(cont<50){
+        if(professores[cont].cod==0){ // Sai do loop quando encontra o último professor cadastrado
+            break;
+        }
+        while(i<50){
+            if(disciplinas[i].cod==0){ // Sai do loop quando encontra a última disciplina cadastrada
+                break;
+            }
+            professores[cont].codDisciplinas[i] = disciplinas[i].cod;
+            
+            i++;
+        }
+        
+        i=0;
+        cont++;
+    }
+}
+
+void remAlDisc(taluno alunos[]){
+    int i=0, j=0;
+    
+    for (i = 0; i < 50; i++) {
+        for(j=0; j<50; j++){
+            alunos[i].codDisciplinas[j]=0;
+        }
+    }
+}
+
+void remProfDisc(tprofessores professores[]){
+    int i=0, j=0;
+    
+    for (i = 0; i < 50; i++) {
+        for(j=0; j<50; j++){
+            professores[i].codDisciplinas[j]=0;
+        }
+    }
+}
+
 int main(void){
     int opcao=1;
     taluno alunos[50];
@@ -221,9 +278,9 @@ int main(void){
 	    printf("Opcao: ");
             scanf("%d", &opcao);
 	    printf("\n");
-            if ((opcao<0) || (opcao>11))
+            if ((opcao<0) || (opcao>10))
                 printf("Opcao invalida!\n");
-        } while ((opcao<0) || (opcao>11));
+        } while ((opcao<0) || (opcao>10));
         switch (opcao){
             case 0: // Finaliza o programa caso seja escolhida a opção 0
                 printf("Finalizando o programa.\n");
@@ -277,14 +334,31 @@ int main(void){
                     imprimeAlDisc(alunos[codDigitado], disciplinas);
                 }
                 break;
+            case 6:
+                printf("Digite o codigo da disciplina: ");
+                __fpurge(stdin);
+                // fflush(stdin);
+                scanf("%d", &codDigitado);
+                imprimeDiscAl(alunos, codDigitado);
+                break;
             case 7:
                 matriculaAlDiscTodos(alunos, disciplinas);
                 break;
+            case 8:
+                vincProfDisc(disciplinas, professores);
+                break;
+            case 9:
+                remAlDisc(alunos);
+                break;
+            case 10:
+                remProfDisc(professores);
+                break;
+            /*
             case 11:    // Imprime as listas de alunos, professores e disciplinas para debug
                 imprimeAlunos(alunos);
                 imprimeDisciplinas(disciplinas);
                 imprimeProfessores(professores);
-                break;
+                break; */
         }
         
         
