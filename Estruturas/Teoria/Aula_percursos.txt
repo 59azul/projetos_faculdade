@@ -1,0 +1,57 @@
+        Percursos Básicos
+
+       9
+    5    12
+   1 6 10  15
+
+1- Em ordem (ERD)
+Neste tipo de percurso, primeiro visita-se(analisa-se, abre-se) a subárvore
+esquerda(E), depois o nó raiz(R) e depois a subárvore direita.
+
+void em_ordem(no *raiz){
+    if (raiz){
+        em_ordem(raiz->esq);
+        printf("%d", raiz->info);
+        em_ordem(raiz->dir);
+    }
+}
+> 1 5 6 9 10 12 15
+
+2- Pré-ordem
+void pre_ordem(no *raiz){
+    if(raiz){
+        printf("%d", raiz->info);
+        pre_ordem(raiz->esq);
+        pre_ordem(raiz->dir);
+    }
+}
+> 9 5 1 6 12 10 15
+
+3- Pós-ordem
+void pos_ordem(no *raiz){
+    if (raiz){
+        pos_ordem(raiz->esq);
+        pos_ordem(raiz->dir);
+        printf("%d", raiz->info);
+    }
+}
+> 1 6 5 10 15 12 9
+
+4- Largura
+Neste tipo de percurso, os nós são visitados por níveis, tipicamente da esquerda
+para a direita.
+void largura(no *raiz){
+    if(raiz){
+
+    }
+}
+
+insere(raiz);
+while(fila/pilha){
+    x=remove();
+    print(x->info);
+    insere(x->esq);
+    insere(x->dir);
+}
+
+-> 9 5 12 1 6 10 15
