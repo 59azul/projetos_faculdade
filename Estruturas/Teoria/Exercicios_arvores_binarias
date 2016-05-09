@@ -1,0 +1,52 @@
+1. Implemente uma função que retorne o maior valor armazenado(ou -1 para árvore
+vazia).
+
+int maior(No *raiz){
+    if(!raiz){
+        return -1;
+    }
+    if(raiz->dir){
+        return maior(raiz->dir);
+    }
+    return raiz->info;
+}
+
+2. Função que retorna a quantidade de valores pares armazenados.
+
+int quantPares(no *raiz){
+    if(raiz){
+        if(raiz->info%2==0)
+            return 1 + quantPares(raiz->dir)
+                     + quantPares(raiz->esq);
+        return quantPares(raiz->dir) + quantPares(raiz->esq);
+    }
+    return 0;
+}
+
+3. Função que verifica se uma árvore é estritamente binária(todos os nós são
+folhas ou possuem 2 filhos).
+Retorno:    1 - estritamente binária
+            0 - não estritamente binária
+
+int binaria(no *r){
+    if(r==NULL){
+        return 1;
+    }
+    if(r->esq==NULL && r->dir) return 1;
+    if(r->esq==NULL || r->dir) return 0;
+    return (binaria(r->esq) && binaria(r->dir));
+}
+
+4. Função que remove o elemento de valor n da árvore, caso exista.
+
+
+
+5. Função que compara duas árvores e verifica se são iguais.
+Retorno:    1 - iguais
+            0 - diferentes
+
+
+     12
+   7     15
+ 4 10  13  18
+  8     14
