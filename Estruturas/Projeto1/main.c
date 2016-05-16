@@ -586,9 +586,9 @@ printf("ERRO");
 
 void multiplicaUmPorUm(Matriz **pLista)
 {
-	char nome1[50], nome2[50]. nomeF[50];
-	Matriz *ma1, *aux,*ma2;
-	int comparador;
+	char nome1[50], nome2[50], nomeF[50];
+	Matriz *ma1, *aux,*ma2, *maFinal=(Matriz *)malloc(sizeof(Matriz));
+	int comparador, i=0, j=0;
 	ma1=*pLista;
 	ma2=*pLista;
 	aux=*pLista;
@@ -609,10 +609,15 @@ void multiplicaUmPorUm(Matriz **pLista)
 			comparador = strcmp(ma1->nome, nome1);
 			if(comparador==0) // Se encontrar a primeira matriz
 			{
-				fflush(stdin)
+				fflush(stdin);
 				scanf(" %s", &nome2);
 				break;
 			}
+			if(!(ma1->prox))
+			{
+				printf("ERRO");
+			}
+			ma1 = ma1->prox;
 			
 		}
 		while(ma2) // Procura a segunda matriz
@@ -624,6 +629,11 @@ void multiplicaUmPorUm(Matriz **pLista)
 				scanf(" %s", &nomeF);
 				break;
 			}
+			if(!(ma2->prox))
+			{
+				printf("ERRO");
+			}
+			ma2=ma2->prox;
 		}
 		while(aux) // Verifica se o nome da matriz de resultado existe
 		{
@@ -637,18 +647,120 @@ void multiplicaUmPorUm(Matriz **pLista)
 			{
 				if((ma1->linhas == ma2->linhas) && (ma1->colunas == ma2->colunas)) // Verifica se o número de linhas e de colunas das duas matrizes escolhidas são iguais
 				{
+					aux->prox = maFinal; // Inclui a matriz de resultado na lista de matrizes
 					strcpy(maFinal->nome, nomeF);
 					maFinal->linhas = ma1->linhas;
 					maFinal->colunas = ma1->colunas;
 					maFinal->prox = NULL;
-					
+					for (i = 0; i < maFinal->linhas; i++) 
+					{
+						for (j = 0; j < maFinal->colunas; j++) 
+						{
+							maFinal->matriz[i][j] = (ma1->matriz[i][j]) * (ma2->matriz[i][j]); // Faz a multiplicação elemento por elemento das duas matrizes
+						}
+					}
+					break;
 				}
 				
 				
 				
-				aux->prox = maFinal;
+				
 				
 			}
+			aux=aux->prox;
+			
+		}
+	}
+	
+}
+
+void divideUmPorUm(Matriz **pLista)
+{
+	char nome1[50], nome2[50], nomeF[50];
+	Matriz *ma1, *aux,*ma2, *maFinal=(Matriz *)malloc(sizeof(Matriz));
+	int comparador, i=0, j=0;
+	ma1=*pLista;
+	ma2=*pLista;
+	aux=*pLista;
+	
+	fflush(stdin);
+	scanf(" %s", &nome1);
+	
+	// Verifica se a lista está vazia
+	if (!(*pLista))
+	{
+		printf("ERRO");
+	}
+	// Procura a primeira matriz
+	else
+	{
+		while(ma1)
+		{
+			comparador = strcmp(ma1->nome, nome1);
+			if(comparador==0) // Se encontrar a primeira matriz
+			{
+				fflush(stdin);
+				scanf(" %s", &nome2);
+				break;
+			}
+			if(!(ma1->prox))
+			{
+				printf("ERRO");
+			}
+			ma1 = ma1->prox;
+			
+		}
+		while(ma2) // Procura a segunda matriz
+		{
+			comparador = strcmp(ma2->nome, nome2);
+			if(comparador==0)
+			{
+				fflush(stdin);
+				scanf(" %s", &nomeF);
+				break;
+			}
+			if(!(ma2->prox))
+			{
+				printf("ERRO");
+			}
+			ma2=ma2->prox;
+		}
+		while(aux) // Verifica se o nome da matriz de resultado existe
+		{
+			comparador=strcmp(aux->nome, nomeF);
+			if(comparador==0)
+			{
+				printf("Erro");
+				break;
+			}
+			if(!(aux->prox))
+			{
+				if((ma1->linhas == ma2->linhas) && (ma1->colunas == ma2->colunas)) // Verifica se o número de linhas e de colunas das duas matrizes escolhidas são iguais
+				{
+					aux->prox = maFinal; // Inclui a matriz de resultado na lista de matrizes
+					strcpy(maFinal->nome, nomeF);
+					maFinal->linhas = ma1->linhas;
+					maFinal->colunas = ma1->colunas;
+					maFinal->prox = NULL;
+					for (i = 0; i < maFinal->linhas; i++) 
+					{
+						for (j = 0; j < maFinal->colunas; j++) 
+						{
+							maFinal->matriz[i][j] = (ma1->matriz[i][j]) / (ma2->matriz[i][j]); // Faz a multiplicação elemento por elemento das duas matrizes
+						}
+					}
+					
+					
+					break;
+				}
+				
+				
+				
+				
+				
+			}
+			aux=aux->prox;
+			
 		}
 	}
 	

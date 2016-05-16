@@ -4,7 +4,7 @@
 CC = gcc
 
 # Opções de compilação
-CFLAGS = -Wall -g
+CFLAGS = -g
 
 # Wildcard para arquivos fonte
 FONTES = $(wildcard *.c)
