@@ -625,18 +625,23 @@ void multiplicaUmPorUm(Matriz **pLista)
 				break;
 			}
 		}
-		while(aux)
+		while(aux) // Verifica se o nome da matriz de resultado existe
 		{
 			comparador=strcmp(aux->nome, nomeF);
 			if(comparador==0)
 			{
 				printf("Erro");
+				break;
 			}
 			if(!(aux->prox))
 			{
-				if((ma1->linhas == ma2->linhas) && (ma1->colunas == ma2->colunas))
+				if((ma1->linhas == ma2->linhas) && (ma1->colunas == ma2->colunas)) // Verifica se o número de linhas e de colunas das duas matrizes escolhidas são iguais
 				{
-					criaMatriz(*pLista, nomeF, ma1->linhas, ma1->colunas);
+					strcpy(maFinal->nome, nomeF);
+					maFinal->linhas = ma1->linhas;
+					maFinal->colunas = ma1->colunas;
+					maFinal->prox = NULL;
+					
 				}
 				
 				
