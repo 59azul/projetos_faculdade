@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <matriz.h>
+//#include <matriz.h>
 
 typedef struct tlistaM listaM;
 
