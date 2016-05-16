@@ -20,15 +20,14 @@ void criaVazia(Matriz **pLista);
 void criaMatriz(Matriz **pLista, char nome[], int linhas, int colunas);
 void destroiMatriz(Matriz **pLista, char nome[]);
 void transporMatriz(Matriz **pLista, char nome[]);
-void somaMatriz(Matriz *pLista1, char nome[], Matriz *pLista2, char nome2[]);
-void atribuirElemento(Matriz **pLista, char nome[], int linhas, int colunas, int valor);
+
 
 
 void main()
 {
 	Matriz *LISTA;
 	char opt[3], nome[20];
-	int resultado = 1, sair = 0, linhas, colunas, valor;
+	int resultado = 1, sair = 0, linhas, colunas;
 
 	//INICIALIZA LISTA
 	criaVazia(&LISTA);
@@ -46,7 +45,7 @@ void main()
 			fflush(stdin);
 			scanf(" %s", &nome);
 			scanf("%d %d", &linhas, &colunas);
-			criaMatriz(&LISTA, nome, linhas, colunas);
+			criaMatriz(&LISTA,nome,linhas,colunas);
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -58,7 +57,7 @@ void main()
 		{
 			fflush(stdin);
 			scanf(" %s", &nome);
-			destroiMatriz(&LISTA, nome);
+			destroiMatriz(&LISTA,nome);
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -68,6 +67,7 @@ void main()
 		resultado = strcmp(opt, "IM");
 		if (resultado == 0)
 		{
+
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -77,12 +77,7 @@ void main()
 		resultado = strcmp(opt, "AE");
 		if (resultado == 0)
 		{
-			fflush(stdin);
-			scanf("%s", &nome);
-			printf("Insira um Valor:\n");
-			scanf("%i", &valor);
-			scanf("%i %i", &linhas, &colunas);
-			atribuirElemento(&LISTA, nome, linhas, colunas, valor);
+
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -114,7 +109,7 @@ void main()
 		{
 			fflush(stdin);
 			scanf(" %s", &nome);
-			transporMatriz(&LISTA, nome);
+			transporMatriz(&LISTA,nome);
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -130,7 +125,7 @@ void main()
 		}
 
 
-		//DIVIDIR UMA MATRIZ POR OUTRA (ELEMENTO A ELEMENTO)
+		//DIVIDIR UMA MATRIZ POR OUTRA
 		resultado = strcmp(opt, "DV");
 		if (resultado == 0)
 		{
@@ -150,12 +145,11 @@ void main()
 		}
 
 
-		//MULTIPLICAR UMA MATRIZ POR OUTRA (ELEMENTO A ELEMENTO)
+		//DIVIDIR UMA MATRIZ POR OUTRA (ELEMENTO A ELEMENTO)
 		resultado = strcmp(opt, "ME");
 		if (resultado == 0)
 		{
-            
-            
+
 			printf("\n\n");
 			resultado = 1;
 		}
@@ -185,7 +179,7 @@ void criaMatriz(Matriz **pLista, char nome[], int linhas, int colunas)
 {
 	int i = 0, j = 0, erro = 0, resultado = 1, saida = 0;
 	Matriz *tmp, *novo = (Matriz *)malloc(sizeof(Matriz));
-
+	
 
 	tmp = *pLista;
 
@@ -292,7 +286,7 @@ void destroiMatriz(Matriz **pLista, char nome[])
 	{
 		tmp = (*pLista);
 		aux = (*pLista);
-
+		
 		//Vai procurar pela matriz que deseja remover
 		do
 		{
@@ -445,144 +439,6 @@ void transporMatriz(Matriz **pLista, char nome[])
 
 	}
 }
-
-
-void atribuirElemento(Matriz **pLista, char nome[], int linhas, int colunas, int valor)
-{
-	int i = 0, j = 0, erro = 0, resultado = 1, saida = 0;
-	Matriz *tmp;
-
-	tmp = *pLista;
-
-	if (tmp != NULL)
-	{
-		do
-		{
-			//Verifica se existe a matriz passada
-			resultado = strcmp(tmp->nome, nome);
-			//Se existe, verifica se chegou no fim da lista para continuar o loop
-			if (resultado == 0)
-			{
-				if (linhas <= tmp->linhas && linhas > 0 && colunas <= tmp->colunas && colunas > 0)
-				{
-					tmp->matriz[linhas][colunas] = valor;
-					printf("%i", tmp->matriz[linhas][colunas]);
-					saida = 1;
-				}
-				else
-				{
-					printf("ERRO");
-					erro = 1;
-					saida = 1;
-				}
-			}
-
-			//se não existir, retorna erro
-			else
-			{
-
-				printf("ERRO");
-				erro = 1;
-				saida = 1;
-
-			}
-		} while (saida != 1);
-	}
-}
-
-/*void somaMatriz(Matriz *pLista1, char nome[], Matriz *pLista2, char nome2[])
-{
-int i = 0, j = 0,  erro = 0, resultado = 1, saida = 0, saida2 = 0;
-Matriz *tmp, *novo = (Matriz *)malloc(sizeof(Matriz)), *aux, *tmp2, *aux2;
-char nome_Soma[20];
-
-//Verifica se a lista está vazia, se estiver retorna ERRO
-if (!(pLista1))
-{
-printf("ERRO");
-}
-else
-{
-tmp = (pLista1);
-aux = (pLista1);
-
-//Irá procurar se a primeira matriz existe
-do
-{
-
-resultado = strcmp(tmp->nome, nome);
-if (resultado == 0)
-{
-//Irá procurar se a segunda matriz existe
-tmp2 = (pLista2);
-aux2 = (pLista2);
-
-do
-{
-resultado = strcmp(tmp2->nome, nome);
-if (resultado == 0)
-{
-//Se ambas as matrizes existirem
-fflush(stdin);
-scanf(" %s", &nome_Soma);
-do
-{
-resultado = strcmp(aux->nome, nome_Soma);
-//Se ja existir, retorna ERRO e encerra o loop 2
-if (resultado == 0)
-{
-erro = 1;
-saida2 = 1;
-}
-else
-{
-//Se não existir, vai verificar se chegou ao fim da lista
-if (resultado != 0)
-{
-if (aux->prox != NULL)
-{
-aux = aux->prox;
-}
-else
-{
-saida2 = 1;
-}
-}
-}
-} while (saida2 != 1);
-
-//Após terminar a verificação do nome da transposta, encerra o loop 1
-saida = 1;
-}
-}
-
-
-
-}
-//Se a matriz desejada não for a atual, irá verificar se chegou no fim da lista
-else
-{
-if (tmp->prox == NULL)
-{
-saida = 1;
-}
-else
-{
-tmp = tmp->prox;
-}
-}
-
-} while (saida != 1);
-
-//Se foi verificado irregularidade, retorna ERRO
-if (erro == 1)
-{
-printf("ERRO");
-}
-
-
-}
-}*/
 
 void multiplicaUmPorUm(Matriz **pLista)
 {
@@ -746,7 +602,7 @@ void divideUmPorUm(Matriz **pLista)
 					{
 						for (j = 0; j < maFinal->colunas; j++) 
 						{
-							maFinal->matriz[i][j] = (ma1->matriz[i][j]) / (ma2->matriz[i][j]); // Faz a multiplicação elemento por elemento das duas matrizes
+							maFinal->matriz[i][j] = (ma1->matriz[i][j]) / (ma2->matriz[i][j]); // Faz a divisão elemento por elemento das duas matrizes
 						}
 					}
 					
