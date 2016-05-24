@@ -53,3 +53,13 @@ antepassado(X, Z) :-
 
 descendente(X,Y) :-
     antepassado(Y,X).
+
+pertence(X,[X|Cauda]).
+pertence(X,[Cabeca|Cauda]) :-
+    pertence(X,Cauda).
+
+conc([],L,L).
+conc([X|L1],L2,[X|L]) :-
+    conc(L1,L2,L).
+
+acrescentar(X,L,[X|L]).
