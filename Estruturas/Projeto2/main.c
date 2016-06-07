@@ -1,3 +1,17 @@
+/*
+Integrante 1 - Nome: Daniel Augusto Silveira Ramos__________ RA : 15589500
+Integrante 2 - Nome: Julio Ferro Neto_______________________ RA : 15265135
+Integrante 3 - Nome: Augusto Scarelli Silva_________________ RA : 15049711
+Integrante 4 - Nome:Danilo Luis Lopes Raymundo Paixão_______ RA : 15051659
+Resultados obtidos :
+Projeto básico : 100 % concluído - Obs : ____________________________________
+(x) Opcional 1 - Obs : concluido_____________________________________________
+( ) Opcional 2 - Obs : ______________________________________________________
+( ) Opcional 3 - Obs : ______________________________________________________
+( ) Opcional 4 - Obs : ______________________________________________________
+( ) Opcional 5 - Obs : ______________________________________________________
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<string.h>
 #include <stdio.h>
@@ -8,7 +22,7 @@
 struct Node
 {
 	char nome[50];
-	long int cpf;
+	unsigned long int cpf;
 	struct telefone *numeros;
 	struct Node *dir, *esq;
 };
@@ -17,7 +31,7 @@ typedef struct Node node;
 //LISTA DE TELEFONES
 struct telefone
 {
-	long int numero;
+	unsigned long int numero;
 	struct telefone *prox;
 };
 typedef struct telefone Fone;
@@ -30,25 +44,26 @@ void alterarCadastro(node **LISTA);
 void buscaCadastro(node *LISTA);
 void exibirEmOrdem(node *pRaiz);
 
+//OPCIONAIS
+void buscaNomeTelefone(node *pRaiz);
+void exibeNomeTelefone(node *pRaiz, char nome[], unsigned long int telefone, int opcao);
 
 //FUNÇÕES AUXILIARES
 //Inicializa a Arvore de Cadastros
 void criaVazia(node **LISTA);
 
 //Funções da Lista de Cadastros
-void inserir(node **pRaiz, long int cpf, node *novo);
-void remover(node **pRaiz, long int cpf);
+void inserir(node **pRaiz, unsigned long int cpf, node *novo);
+void remover(node **pRaiz, unsigned long int cpf);
 node *MaiorDireita(node **no); //continuação da função de remover
-int procura_cpf(node *LISTA, long int cpf);
+int procura_cpf(node *LISTA, unsigned long int cpf);
 
 //Funções para Lista de Telefones
 void adicionaTelefone(Fone **num);
 void removerTelefone(Fone **num);
-int procurarTelefone(Fone *num, int numero);
+int procurarTelefone(Fone *num, unsigned long int numero);
 
-
-
-void main() //-------------------------------------------------------------------------------------
+int main(void) //-------------------------------------------------------------------------------------
 {
 	node *LISTA = (node *)malloc(sizeof(node));
 	int opt;
@@ -56,7 +71,7 @@ void main() //------------------------------------------------------------------
 	if (!LISTA)
 	{
 		printf("Sem memoria disponivel!\n");
-		system("pause");
+		return 0;
 	}
 
 	criaVazia(&LISTA);
@@ -71,6 +86,7 @@ void main() //------------------------------------------------------------------
 		printf("4. Busca de um assinante a partir do seu CPF;\n");
 		printf("5. Listagem de todos os assinantes ordenados por CPF;\n");
 		//ADICIONAR TÓPICOS EXTRAS AQUI
+		printf("6. Listagem por parte do nome ou telefone;\n");
 		printf("0. Sair.\n");
 		printf("opcao:  "); scanf("%d", &opt);
 
@@ -107,6 +123,11 @@ void main() //------------------------------------------------------------------
 			break;
 
 			//ADICIONAR TÓPICOS EXTRAS AQUI
+		case 6:
+			printf("\nLISTAGEM POR NOME/TELEFONE\n");
+			buscaNomeTelefone(LISTA);
+			printf("\n\n");
+			break;
 
 
 		case 0:
@@ -120,7 +141,7 @@ void main() //------------------------------------------------------------------
 	} while (opt);
 
 	free(LISTA);
-	
+	return 0;
 }
 
 
@@ -139,10 +160,10 @@ void incluirCadastro(node **LISTA)
 
 	//Recebendo os valores do novo cadastro
 	printf("Digite o nome: ");
-	fflush(stdin);
-	scanf(" %s", &novo->nome);
+	__fpurge(stdin);
+	fgets(novo->nome, 50, stdin);
 	printf("Digite o CPF: ");
-	scanf("%ld", &novo->cpf);
+	scanf("%lu", &novo->cpf);
 	novo->dir = NULL;
 	novo->esq = NULL;
 
@@ -151,7 +172,7 @@ void incluirCadastro(node **LISTA)
 		do  //caso a arvore de cadastros esteja vazia, o novo nó será atribuido como raiz da arvore
 		{
 			printf("Deseja cadastrar um novo numero de telefone? (s/n): ");
-			fflush(stdin);
+			__fpurge(stdin);
 			scanf(" %c", &opcao);
 			if (opcao == 's')
 			{
@@ -170,7 +191,7 @@ void incluirCadastro(node **LISTA)
 				}
 			}
 		} while (resultado2 == 1);
-		
+
 		novo->numeros = num;
 		(*LISTA) = novo;
 		printf("Cadastro efetuado.");
@@ -187,7 +208,7 @@ void incluirCadastro(node **LISTA)
 			do
 			{
 				printf("Deseja cadastrar um novo numero de telefone? (s/n): ");
-				fflush(stdin);
+				__fpurge(stdin);
 				scanf(" %c", &opcao);
 				if (opcao == 's')
 				{
@@ -218,10 +239,10 @@ void incluirCadastro(node **LISTA)
 
 void removerCadastro(node **LISTA)
 {
-	long int cpf;
+	unsigned long int cpf;
 
 	printf("Digite o CPF que deseja remover: ");
-	scanf("%ld", &cpf);
+	scanf("%lu", &cpf);
 	remover(LISTA, cpf); //Fuñção recursiva que remove cadastros
 }
 
@@ -231,18 +252,18 @@ void alterarCadastro(node **LISTA)
 	node *tmp, *novo = (node *)malloc(sizeof(node));
 	Fone *num = (Fone *)malloc(sizeof(Fone));
 	int resultado1 = 0, resultado2 = 1, opcao;
-	long int cpf;
+	unsigned long int cpf;
 	char escolha;
 
 	tmp = (*LISTA);
 
 
 	printf("Digite o CPF do cadastro que deseja alterar: ");
-	scanf("%ld", &cpf);
+	scanf("%lu", &cpf);
 
 	resultado1 = procura_cpf(tmp, cpf);// Somente verifica se o cadastro existe no sistema
 
-	if (resultado1 == 1) 
+	if (resultado1 == 1)
 	{
 		while (tmp != NULL) //Percorre a arvore até chegar no cadastro caso exista
 		{
@@ -273,7 +294,7 @@ void alterarCadastro(node **LISTA)
 			do //Loop para adicionar um novo numero de telefone
 			{
 				printf("Deseja cadastrar um novo numero de telefone? (s/n): ");
-				fflush(stdin);
+				__fpurge(stdin);
 				scanf(" %c", &escolha);
 				if (escolha == 's')
 				{
@@ -300,7 +321,7 @@ void alterarCadastro(node **LISTA)
 			do //Loop para remover um novo numero de telefone
 			{
 				printf("Deseja cadastrar um novo numero de telefone? (s/n): ");
-				fflush(stdin);
+				__fpurge(stdin);
 				scanf(" %c", &escolha);
 				if (escolha == 's')
 				{
@@ -324,8 +345,8 @@ void alterarCadastro(node **LISTA)
 
 		case 3: //Altera o nome do cadastro
 			printf("Digite o novo nome: ");
-			fflush(stdin);
-			scanf(" %s", &tmp->nome);
+			__fpurge(stdin);
+			fgets(tmp->nome, 50, stdin);
 			printf("Alteracao concluida.");
 			break;
 
@@ -345,11 +366,11 @@ void alterarCadastro(node **LISTA)
 void buscaCadastro(node *LISTA)
 {
 	node *tmp = (node *)malloc(sizeof(node));
-	long int cpf;
+	unsigned long int cpf;
 	int resultado = 0, resultado2 = 0;
 
 	printf("Digite o CPF do cadastro que deseja encontrar: ");
-	scanf("%ld", &cpf);
+	scanf("%lu", &cpf);
 
 	tmp = LISTA;
 	resultado = procura_cpf(tmp, cpf); //Procura cadastro no sistema
@@ -360,7 +381,7 @@ void buscaCadastro(node *LISTA)
 		{
 			if (tmp->cpf == cpf)
 			{
-				printf("nome: %s, CPF: %ld \n", tmp->nome, tmp->cpf);
+				printf("nome: %s, CPF: %lu \n", tmp->nome, tmp->cpf);
 				break;
 			}
 			if (cpf > tmp->cpf)
@@ -385,10 +406,47 @@ void exibirEmOrdem(node *pRaiz)
 	if (pRaiz != NULL)
 	{
 		exibirEmOrdem(pRaiz->esq); //Percorre a arvore até o ultimo nó esquerdo
-		printf("\nnome: %s, CPF: %ld", pRaiz->nome, pRaiz->cpf); //Printa o nó
+		printf("\nnome: %s, CPF: %lu", pRaiz->nome, pRaiz->cpf); //Printa o nó
 		exibirEmOrdem(pRaiz->dir); //Percorre o lado direto do nó
 	}
 }
+
+
+void buscaNomeTelefone(node *pRaiz)
+{
+	int opcao;
+	unsigned long int telefone;
+	char nome[50];
+
+	printf("\nEscolha a opcao que deseja realizar:\n");
+	printf("1. Buscar cadastros por parte do nome;\n");
+	printf("2. Buscar cadastos por telefone.\n");
+	printf("opcao:  "); scanf("%d", &opcao);
+
+	switch (opcao)
+	{
+	case 1:
+		printf("Digite o nome que deseja buscar: ");
+		__fpurge(stdin);
+		fgets(nome, 50, stdin);
+		printf("\nCadastros encontrados: \n");
+		exibeNomeTelefone(pRaiz, nome, 0, 1);
+		break;
+
+	case 2:
+		printf("Digite o telefone que deseja buscar: ");
+		scanf(" %lu", &telefone);
+		printf("\nCadastros encontrados: \n");
+		exibeNomeTelefone(pRaiz, nome, telefone, 2);
+		break;
+
+	default:
+		printf("Opcao invalida!");
+		break;
+	}
+
+}
+
 
 
 //FUNÇÕES AUXILIARES ------------------------------------------------------------------------------
@@ -399,7 +457,7 @@ void criaVazia(node **pLista)
 }
 
 
-void inserir(node **pRaiz, long int cpf, node *novo)
+void inserir(node **pRaiz, unsigned long int cpf, node *novo)
 {
 	if (*pRaiz == NULL) //Insere o nó na arvore
 	{
@@ -420,10 +478,10 @@ void inserir(node **pRaiz, long int cpf, node *novo)
 }
 
 
-void remover(node **pRaiz, long int cpf)
+void remover(node **pRaiz, unsigned long int cpf)
 {
-	if (*pRaiz == NULL) 
-	{   
+	if (*pRaiz == NULL)
+	{
 		printf("Cadastro não encontrado!");
 	}
 	else
@@ -441,9 +499,9 @@ void remover(node **pRaiz, long int cpf)
 			else
 			{    // Caso encontre o cadastro
 				node *pAux = *pRaiz; //cria uma variavel auxiliar para verificar os "filhos" do nó
-				if (((*pRaiz)->esq == NULL) && ((*pRaiz)->dir == NULL)) 
+				if (((*pRaiz)->esq == NULL) && ((*pRaiz)->dir == NULL))
 				{	// se nao houver filhos...exclui o nó atual
-					free(pAux);		
+					free(pAux);
 					(*pRaiz) = NULL;
 					printf("Remocao concluida.");
 				}
@@ -491,7 +549,7 @@ node *MaiorDireita(node **no)
 	{
 		return MaiorDireita(&(*no)->dir);
 	}
-	else 
+	else
 	{
 		node *aux = *no;
 		if ((*no)->esq != NULL) // se nao houver essa verificacao, esse nó vai perder todos os seus filhos da esquerda!
@@ -507,7 +565,7 @@ node *MaiorDireita(node **no)
 }
 
 
-int procura_cpf(node *LISTA, long int cpf)
+int procura_cpf(node *LISTA, unsigned long int cpf)
 {
 	if (!LISTA) { return 0; } //Se não encontrar nada retorna 0
 	if (LISTA->cpf == cpf) { return 1; } //Se encontrar o nó retorna 1
@@ -524,7 +582,7 @@ void adicionaTelefone(Fone **num)
 	aux = *num;
 	// Inicializa o novo nó
 	printf("\nDigite o numero: ");
-	scanf("%ld", &telefone->numero);
+	scanf("%lu", &telefone->numero);
 	telefone->prox = NULL;
 
 	resultado = procurarTelefone(aux, telefone->numero); //Procura o nó na lista de telefones
@@ -564,11 +622,11 @@ void adicionaTelefone(Fone **num)
 void removerTelefone(Fone **num)
 {
 	Fone *aux, *tmp;
-	long int numero;
+	unsigned long int numero;
 	int resultado = 0;
 
 	printf("\nDigite o numero: ");
-	scanf("%ld", &numero);
+	scanf("%lu", &numero);
 
 	if (!(*num))
 	{
@@ -614,7 +672,7 @@ void removerTelefone(Fone **num)
 }
 
 
-int procurarTelefone(Fone *num, int numero)
+int procurarTelefone(Fone *num, unsigned long int numero)
 {
 	while (num != NULL) // Enquanto a lista não estiver vazia
 	{
@@ -628,4 +686,45 @@ int procurarTelefone(Fone *num, int numero)
 		}
 	}
 	return 0; //Se não encontrar retorna 0
+}
+
+
+void exibeNomeTelefone(node *pRaiz, char nome[], unsigned long int telefone, int opcao)
+{
+	if (pRaiz != NULL)
+	{
+		if (opcao == 1)
+		{
+			exibeNomeTelefone(pRaiz->esq, nome, telefone, opcao);
+			char *compara;
+			
+			compara = strstr(pRaiz->nome, nome);
+			if (compara != NULL)
+			{
+				printf("\nnome: %s, CPF: %lu", pRaiz->nome, pRaiz->cpf); //Printa o nó
+			}
+
+			exibeNomeTelefone(pRaiz->dir, nome, telefone, opcao);
+		}
+
+		if (opcao == 2)
+		{
+			exibeNomeTelefone(pRaiz->esq, nome, telefone, opcao);
+			Fone *num = pRaiz->numeros;
+			while (num != NULL)
+			{
+				if (num->numero == telefone)
+				{
+					printf("\nnome: %s, CPF: %lu", pRaiz->nome, pRaiz->cpf); //Printa o nó
+					break;
+				}
+				else
+				{
+					num = num->prox;
+				}
+			}
+			exibeNomeTelefone(pRaiz->dir, nome, telefone, opcao);
+		}
+	}
+
 }
