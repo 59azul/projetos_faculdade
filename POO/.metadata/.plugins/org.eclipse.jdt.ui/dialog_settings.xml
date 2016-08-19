@@ -7,6 +7,7 @@
 		<item value="1" key="rootMode"/>
 		<item value="false" key="linkWithEditor"/>
 	</section>
+<<<<<<< HEAD
 	<section name="NewClassWizardPage">
 		<item value="false" key="create_constructor"/>
 		<item value="true" key="create_unimplemented"/>
@@ -18,4 +19,6 @@
 	</section>
 	<section name="completion_proposal_size">
 	</section>
+=======
+>>>>>>> master
 </section>
