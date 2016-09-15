@@ -1,12 +1,13 @@
 
 public class Livro {
 	
-	private int quantidade;
+	private int quantidade;	// Quantidade disponível de exemplares de um livro
+	private int total;		// Quantidade total de exemplares
 	private String titulo;
 	
-	Livro(int quantidade, String titulo)
+	Livro(int total, String titulo)
 	{
-		this.quantidade = quantidade;
+		this.total = total;
 		this.titulo = titulo;
 	}
 	
@@ -22,6 +23,14 @@ public class Livro {
 	}
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 }

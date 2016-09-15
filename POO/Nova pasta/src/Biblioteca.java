@@ -1,3 +1,4 @@
+import java.time.Month;
 import java.util.Scanner;
 
 public class Biblioteca {
@@ -6,7 +7,30 @@ public class Biblioteca {
 	private Livro[] livros = new Livro[50];		// Array que contém os livros 
 	private Scanner input = new Scanner(System.in);
 	
-
+	
+	Aluno procuraAluno(int ra)
+	{
+		for(int i = 0; i < 50; i++)
+		{
+			if(alunos[i].getRa() == ra)
+			{
+				return alunos[i];
+			}
+		}
+		return null;
+	}
+	
+	Livro procuraLivro(String titulo)
+	{
+		for(int i = 0; i < 50; i++)
+		{
+			if(livros[i].getTitulo() == titulo)
+			{
+				return livros[i];
+			}
+		}
+		return null;
+	}
 	
 	int cadastraAluno(int indice)
 	{
@@ -50,7 +74,7 @@ public class Biblioteca {
 		{
 			if(livros[j].getTitulo() == titulo)
 			{
-				livros[j].setQuantidade(quantidade+livros[j].getQuantidade()); 	// Soma a quantidade anterior com a quantidade digitada
+				livros[j].setTotal(quantidade+livros[j].getTotal()); 	// Soma a quantidade anterior com a quantidade digitada
 				return -1;														// caso o titulo já exista
 			}
 		}
@@ -58,10 +82,47 @@ public class Biblioteca {
 		return 1;
 	}
 	
+	int emprestaLivro()
+	{
+		int ra;
+		String titulos;
+		System.out.println("Digite o RA do aluno: ");
+		ra = input.nextInt();
+		Aluno usuario = procuraAluno(ra);
+		if(usuario == null)
+		{
+			return -1;
+		}
+		if(usuario.getQuantidadeEmprestimos() >= 3)
+		{
+			return -2;
+		}
+		System.out.println("Digite o título do livro: ");
+		titulos = input.next();
+		Livro emprestado = procuraLivro(titulos);
+		if( emprestado == null)
+		{
+			return -3;
+		}
+		if(emprestado.getQuantidade() > 0)
+		{
+			emprestado.setQuantidade(emprestado.getQuantidade()-1);
+			usuario.setQuantidadeEmprestimos(usuario.getQuantidadeEmprestimos()+1);
+			usuario.setTitulos
+		}
+		
+		
+		
+		return 0;
+	}
+	
 	public void menu()
 	{
 		int escolha, contAluno = 0, contLivro = 0;
 		boolean sair = false;		// Enquanto está falso, não sai
+		
+		
+		System.out.println("Digite a data de hoje: ");
 		
 		
 		while(!sair)
@@ -100,6 +161,17 @@ public class Biblioteca {
 			break;
 			case 1: System.out.println("Cadastro feito com sucesso.");
 			contLivro++;
+			break;
+			}
+		break;
+		case 3:
+			switch(emprestaLivro())
+			{
+			case -1: System.out.println("Usuário não encontrado.");
+			break;
+			case -2: System.out.println("Usuário já emprestou mais de 3 exemplares.");
+			break;
+			case -3: System.out.println("Livro não econtrado.");
 			break;
 			}
 		case 0: sair = true;
