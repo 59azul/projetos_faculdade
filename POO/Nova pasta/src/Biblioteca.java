@@ -1,4 +1,3 @@
-import java.time.Month;
 import java.util.Scanner;
 
 public class Biblioteca {
@@ -24,7 +23,7 @@ public class Biblioteca {
 	{
 		for(int i = 0; i < 50; i++)
 		{
-			if(livros[i].getTitulo() == titulo)
+			if(titulo.equals(livros[i].getTitulo()))
 			{
 				return livros[i];
 			}
@@ -88,27 +87,28 @@ public class Biblioteca {
 		String titulos;
 		System.out.println("Digite o RA do aluno: ");
 		ra = input.nextInt();
-		Aluno usuario = procuraAluno(ra);
-		if(usuario == null)
+		Aluno usuario = procuraAluno(ra);	// Procura um aluno com o ra digitado
+		if(usuario == null)					// Se não for encontrado(retornar null), exibe mensagem de erro
 		{
 			return -1;
 		}
-		if(usuario.getQuantidadeEmprestimos() >= 3)
+		if(usuario.getQuantidadeEmprestimos() >= 3)	// Verifica se o aluno ainda pode emprestar mais algum livro
 		{
 			return -2;
 		}
 		System.out.println("Digite o título do livro: ");
 		titulos = input.next();
-		Livro emprestado = procuraLivro(titulos);
+		Livro emprestado = procuraLivro(titulos);	// Procura um livro com o nome digitado 
 		if( emprestado == null)
 		{
 			return -3;
 		}
 		if(emprestado.getQuantidade() > 0)
 		{
+			usuario.associaLivro(titulos);
 			emprestado.setQuantidade(emprestado.getQuantidade()-1);
 			usuario.setQuantidadeEmprestimos(usuario.getQuantidadeEmprestimos()+1);
-			usuario.setTitulos
+			return 1;
 		}
 		
 		
@@ -173,7 +173,12 @@ public class Biblioteca {
 			break;
 			case -3: System.out.println("Livro não econtrado.");
 			break;
+			case 1: System.out.println("Livro emprestado com sucesso.");
+			break;
+			case 0: System.out.println("Exemplares esgotados.");
+			break;
 			}
+		break;
 		case 0: sair = true;
 		break;
 		default : System.out.println("Opção inválida.");

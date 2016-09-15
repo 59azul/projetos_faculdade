@@ -3,7 +3,7 @@ public class Aluno {
 	
 	private int ra; 		// Variável que guarda o RA do aluno
 	private String nome;	// Variável que guarda o nome do aluno
-	private String[] titulos;
+	private String[] titulos = {"","",""};
 	private int quantidadeEmprestimos;
 	
 	Aluno()
@@ -17,6 +17,11 @@ public class Aluno {
 	{
 		this.ra = ra;
 		this.nome = nome;
+	}
+	
+	public void associaLivro(String titulo)
+	{
+		this.titulos[quantidadeEmprestimos] = titulo;
 	}
 	
 	// Getters e setters
@@ -48,6 +53,8 @@ public class Aluno {
 	public void setQuantidadeEmprestimos(int quantidadeEmprestimos) {
 		this.quantidadeEmprestimos = quantidadeEmprestimos;
 	}
+
+	
 	
 	
 }

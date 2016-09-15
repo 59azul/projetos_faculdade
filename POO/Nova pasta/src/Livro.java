@@ -9,6 +9,7 @@ public class Livro {
 	{
 		this.total = total;
 		this.titulo = titulo;
+		this.quantidade = total;
 	}
 	
 	// Getters e setters
