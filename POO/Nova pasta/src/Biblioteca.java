@@ -5,7 +5,7 @@ public class Biblioteca {
 	private Aluno[] alunos = new Aluno[50];		// Array que contém os alunos
 	private Livro[] livros = new Livro[50];		// Array que contém os livros 
 	private Scanner input = new Scanner(System.in);
-	
+	private Tempo data = new Tempo();
 	
 	Aluno procuraAluno(int ra)
 	{
@@ -74,7 +74,7 @@ public class Biblioteca {
 			if(livros[j].getTitulo() == titulo)
 			{
 				livros[j].setTotal(quantidade+livros[j].getTotal()); 	// Soma a quantidade anterior com a quantidade digitada
-				return -1;														// caso o titulo já exista
+				return -1;												// caso o titulo já exista
 			}
 		}
 		livros[indice] = new Livro(quantidade, titulo);
@@ -116,6 +116,27 @@ public class Biblioteca {
 		return 0;
 	}
 	
+	int devolveLivro()
+	{
+		int ra;
+		String titulo;
+		System.out.println("Digite o RA do aluno que vai realizar a devolução: ");
+		ra = input.nextInt();
+		Aluno usuario = procuraAluno(ra);	// Procura um aluno com o ra digitado
+		if(usuario == null)					// Se não for encontrado(retornar null), exibe mensagem de erro
+		{
+			return -1;
+		}
+		System.out.println("Digite o título do livro: ");
+		titulo = input.next();
+		Livro emprestado = procuraLivro(titulo);	// Procura um livro com o nome digitado 
+		if( emprestado == null)
+		{
+			return -2;
+		}
+		return usuario.devolveLivro(titulo);
+	}
+	
 	public void menu()
 	{
 		int escolha, contAluno = 0, contLivro = 0;
@@ -123,7 +144,13 @@ public class Biblioteca {
 		
 		
 		System.out.println("Digite a data de hoje: ");
-		
+		System.out.println("Dia: ");
+		data.setDia(input.nextInt());
+		System.out.println("Mês: ");
+		data.setMes(input.nextInt());
+		System.out.println("Ano: ");
+		data.setAno(input.nextInt());
+		data.corrigeTempo();
 		
 		while(!sair)
 		{
@@ -176,6 +203,19 @@ public class Biblioteca {
 			case 1: System.out.println("Livro emprestado com sucesso.");
 			break;
 			case 0: System.out.println("Exemplares esgotados.");
+			break;
+			}
+		break;
+		case 4:
+			switch(devolveLivro())
+			{
+			case -2: System.out.println("Livro não encontrado.");
+			break;
+			case -1: System.out.println("Usuário não encontrado.");
+			break;
+			case 0: System.out.println("Usuário não emprestou o livro selecionado.");
+			break;
+			case 1: System.out.println("Livro devolvido com sucesso.");
 			break;
 			}
 		break;

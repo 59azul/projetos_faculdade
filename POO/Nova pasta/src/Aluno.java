@@ -19,9 +19,37 @@ public class Aluno {
 		this.nome = nome;
 	}
 	
+	private int posicaoTitulo()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(titulos[i] == "") return i;
+		}
+		return -1;
+	}
+	
 	public void associaLivro(String titulo)
 	{
-		this.titulos[quantidadeEmprestimos] = titulo;
+		int posicao = posicaoTitulo();
+		if(posicao >=0)
+		{
+			this.titulos[posicao] = titulo;
+		}
+	}
+	
+	public int devolveLivro(String titulo)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(titulos[i].equals(titulo))
+			{
+				titulos[i] = "";
+				quantidadeEmprestimos--;
+				return 1;
+			}
+		}
+		
+		return 0;
 	}
 	
 	// Getters e setters
