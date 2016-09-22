@@ -52,6 +52,18 @@ public class Aluno {
 		return 0;
 	}
 	
+	public void print()
+	{
+		System.out.println("Nome: " + nome);
+		System.out.println("RA: " + ra);
+		System.out.println("Quantidade de livros emprestados: " + quantidadeEmprestimos);
+		System.out.println("Livros emprestados: ");
+		for(int i = 0; i < 3; i++)
+		{
+			if(!titulos[i].equals("")) System.out.println(titulos[i]);
+		}
+	}
+	
 	// Getters e setters
 	public int getRa() {
 		return ra;

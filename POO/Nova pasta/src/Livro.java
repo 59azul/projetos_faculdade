@@ -12,6 +12,13 @@ public class Livro {
 		this.quantidade = total;
 	}
 	
+	public void print()
+	{
+		System.out.println("Nome do livro: " + titulo);
+		System.out.println("Quantidade total de exemplares: " + total);
+		System.out.println("Quantidade disponível de exemplares: " + quantidade);
+	}
+	
 	// Getters e setters
 	public int getQuantidade() {
 		return quantidade;

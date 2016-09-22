@@ -134,7 +134,63 @@ public class Biblioteca {
 		{
 			return -2;
 		}
-		return usuario.devolveLivro(titulo);
+		if(usuario.devolveLivro(titulo) == 1)
+		{
+			emprestado.setQuantidade(emprestado.getQuantidade()+1);
+			return 1;
+		}
+		return 0;
+	}
+	
+	int consultaLivroPorTitulo(int indice)
+	{
+		String titulo;
+		System.out.println("Digite o nome do livro a ser consultado: ");
+		titulo = input.next();
+		
+		for(int i = 0; i <= indice; i++)
+		{
+			if(livros[i].getTitulo().equals(titulo))
+			{
+				livros[i].print();
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+	int consultarUsuarioPorNome(int indice)
+	{
+		String nome;
+		System.out.println("Digite o nome do usuário que quer consultar: ");
+		nome = input.next();
+		
+		for(int i = 0; i <= indice; i++)
+		{
+			if((alunos[i] != null) && (alunos[i].getNome().equals(nome)))
+			{
+				alunos[i].print();
+				return 1;
+			}
+		}
+		
+		return 0;
+	}
+	
+	void consultarListaUsuarios(int indice)
+	{
+		for(int i = 0; i <= indice; i++)
+		{
+			if(alunos[i] != null) alunos[i].print();
+		}
+	}
+	
+	void consultarListaLivros(int indice)
+	{
+		for(int i = 0; i <= indice; i++)
+		{
+			if(livros[i] != null) livros[i].print();
+		}
 	}
 	
 	public void menu()
@@ -162,6 +218,7 @@ public class Biblioteca {
 			System.out.println("6. Consultar alunos por nome.");
 			System.out.println("7. Verificar alunos com devoluções atrasadas.");
 			System.out.println("8. Consultar lista de alunos.");
+			System.out.println("9. Consultar lista de livros.");
 			System.out.println("0. Sair do programa.");
 			escolha = input.nextInt();	// Opção escolhida pelo usuário é armazenada na variável escolha
 			
@@ -218,6 +275,24 @@ public class Biblioteca {
 			case 1: System.out.println("Livro devolvido com sucesso.");
 			break;
 			}
+		break;
+		case 5: 
+			switch(consultaLivroPorTitulo(contLivro))
+			{
+			case 0: System.out.println("Livro não encontrado.");
+			break;
+			}
+		break;
+		case 6: 
+			switch(consultarUsuarioPorNome(contAluno))
+			{
+			case 0: System.out.println("Aluno não encontrado.");
+			break;
+			}
+		break;
+		case 8: consultarListaUsuarios(contAluno);
+		break;
+		case 9: consultarListaLivros(contLivro);
 		break;
 		case 0: sair = true;
 		break;
