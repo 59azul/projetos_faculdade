@@ -4,6 +4,7 @@ public class Aluno {
 	private int ra; 		// Variável que guarda o RA do aluno
 	private String nome;	// Variável que guarda o nome do aluno
 	private String[] titulos = {"","",""};
+	private Tempo[] dataEmprestimos = {new Tempo(), new Tempo(), new Tempo()};
 	private int quantidadeEmprestimos;
 	
 	Aluno()
@@ -28,23 +29,34 @@ public class Aluno {
 		return -1;
 	}
 	
-	public void associaLivro(String titulo)
+	public void associaLivro(String titulo, Tempo data)
 	{
 		int posicao = posicaoTitulo();
 		if(posicao >=0)
 		{
 			this.titulos[posicao] = titulo;
+			dataEmprestimos[posicao] = new Tempo(data.getDia(), data.getAno(), data.getMes());
+			dataEmprestimos[posicao].corrigeTempo();
 		}
 	}
 	
-	public int devolveLivro(String titulo)
+	public int devolveLivro(String titulo, Tempo data)
 	{
 		for(int i = 0; i < 3; i++)
 		{
 			if(titulos[i].equals(titulo))
 			{
+				if((data.getTotal() - dataEmprestimos[i].getTotal()) > 7)
+				{
+					titulos[i] = "";
+					quantidadeEmprestimos--;
+					dataEmprestimos[i] = new Tempo();
+					return -1;
+				}
+				
 				titulos[i] = "";
 				quantidadeEmprestimos--;
+				dataEmprestimos[i] = new Tempo();
 				return 1;
 			}
 		}
@@ -60,8 +72,29 @@ public class Aluno {
 		System.out.println("Livros emprestados: ");
 		for(int i = 0; i < 3; i++)
 		{
-			if(!titulos[i].equals("")) System.out.println(titulos[i]);
+			if(!titulos[i].equals(""))
+				{
+					System.out.println(titulos[i]);
+					System.out.println("Emprestado em: ");
+					dataEmprestimos[i].print();
+				}
 		}
+	}
+	
+	boolean atraso(Tempo data)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			if(dataEmprestimos[i].getTotal() != -1) // Verifica se o elemento sendo percorrido tem uma data válida
+			{
+				if((data.getTotal() - dataEmprestimos[i].getTotal()) > 7)
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	// Getters e setters

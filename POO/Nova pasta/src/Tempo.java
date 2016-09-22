@@ -1,7 +1,27 @@
 
 public class Tempo {
 	private int dia, mes, ano;
+	private int total;
+	
+	Tempo()
+	{
+		total = -1;
+	}
+	
+	Tempo(int dia, int mes, int ano)
+	{
+		this.dia = dia;
+		this.mes = mes;
+		this.ano = ano;
+	}
 
+	public void print()
+	{
+		System.out.println("Dia: " + dia);
+		System.out.println("Mes: " + mes);
+		System.out.println("Ano: " + ano);
+	}
+	
 	public void corrigeTempo()
 	{
 		if(dia > 30)
@@ -14,6 +34,14 @@ public class Tempo {
 			ano++;
 			mes = mes - 12;
 		}
+		/*
+		ano = total / 365;
+		mes = (total % 365)/30;
+		dia = (total % 365) % 30;*/
+		
+		total = ano * 365;
+		total = total + (mes * 30);
+		total = total + dia;
 	}
 	
 	public int getDia() {
@@ -38,6 +66,14 @@ public class Tempo {
 
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	

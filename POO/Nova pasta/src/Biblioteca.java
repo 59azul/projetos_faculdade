@@ -11,7 +11,7 @@ public class Biblioteca {
 	{
 		for(int i = 0; i < 50; i++)
 		{
-			if(alunos[i].getRa() == ra)
+			if(alunos[i] != null && alunos[i].getRa() == ra)
 			{
 				return alunos[i];
 			}
@@ -23,12 +23,25 @@ public class Biblioteca {
 	{
 		for(int i = 0; i < 50; i++)
 		{
-			if(titulo.equals(livros[i].getTitulo()))
+			if(titulo.equals(livros[i].getTitulo()) && livros[i] != null)
 			{
 				return livros[i];
 			}
 		}
 		return null;
+	}
+	
+	void procuraAtraso(int indice)
+	{
+		for(int i = 0; i <= indice; i++)
+		{
+			if((alunos[i] != null) && alunos[i].atraso(data))
+			{
+				System.out.println("Nome: " + alunos[i].getNome());
+				System.out.println("RA: " + alunos[i].getRa());
+			}
+		}
+		
 	}
 	
 	int cadastraAluno(int indice)
@@ -105,7 +118,8 @@ public class Biblioteca {
 		}
 		if(emprestado.getQuantidade() > 0)
 		{
-			usuario.associaLivro(titulos);
+			usuario.associaLivro(titulos,data);
+			
 			emprestado.setQuantidade(emprestado.getQuantidade()-1);
 			usuario.setQuantidadeEmprestimos(usuario.getQuantidadeEmprestimos()+1);
 			return 1;
@@ -125,7 +139,7 @@ public class Biblioteca {
 		Aluno usuario = procuraAluno(ra);	// Procura um aluno com o ra digitado
 		if(usuario == null)					// Se não for encontrado(retornar null), exibe mensagem de erro
 		{
-			return -1;
+			return -3;
 		}
 		System.out.println("Digite o título do livro: ");
 		titulo = input.next();
@@ -134,11 +148,16 @@ public class Biblioteca {
 		{
 			return -2;
 		}
-		if(usuario.devolveLivro(titulo) == 1)
+		switch(usuario.devolveLivro(titulo, data))
 		{
-			emprestado.setQuantidade(emprestado.getQuantidade()+1);
+		case 1: emprestado.setQuantidade(emprestado.getQuantidade()+1);
 			return 1;
+		case -1:
+			emprestado.setQuantidade(emprestado.getQuantidade()+1);
+			return -1;
+		case 0:
 		}
+		
 		return 0;
 	}
 	
@@ -197,19 +216,22 @@ public class Biblioteca {
 	{
 		int escolha, contAluno = 0, contLivro = 0;
 		boolean sair = false;		// Enquanto está falso, não sai
+		Tempo dataDevolucao = new Tempo();
 		
 		
-		System.out.println("Digite a data de hoje: ");
-		System.out.println("Dia: ");
-		data.setDia(input.nextInt());
-		System.out.println("Mês: ");
-		data.setMes(input.nextInt());
-		System.out.println("Ano: ");
-		data.setAno(input.nextInt());
-		data.corrigeTempo();
 		
 		while(!sair)
 		{
+			System.out.println("Digite a data de hoje: ");
+			System.out.println("Dia: ");
+			data.setDia(input.nextInt());
+			System.out.println("Mês: ");
+			data.setMes(input.nextInt());
+			System.out.println("Ano: ");
+			data.setAno(input.nextInt());
+			data.corrigeTempo();
+			dataDevolucao = new Tempo(data.getDia()+7, data.getMes(), data.getAno());
+			dataDevolucao.corrigeTempo();
 			System.out.println("1. Cadastrar um aluno.");
 			System.out.println("2. Cadastar um livro.");
 			System.out.println("3. Emprestar um livro para um aluno.");
@@ -258,6 +280,8 @@ public class Biblioteca {
 			case -3: System.out.println("Livro não econtrado.");
 			break;
 			case 1: System.out.println("Livro emprestado com sucesso.");
+					System.out.println("Devolver em: ");
+					dataDevolucao.print();
 			break;
 			case 0: System.out.println("Exemplares esgotados.");
 			break;
@@ -268,7 +292,9 @@ public class Biblioteca {
 			{
 			case -2: System.out.println("Livro não encontrado.");
 			break;
-			case -1: System.out.println("Usuário não encontrado.");
+			case -3: System.out.println("Usuário não encontrado.");
+			break;
+			case -1: System.out.println("Usuário devolveu o livro com atraso.");
 			break;
 			case 0: System.out.println("Usuário não emprestou o livro selecionado.");
 			break;
@@ -289,6 +315,8 @@ public class Biblioteca {
 			case 0: System.out.println("Aluno não encontrado.");
 			break;
 			}
+		break;
+		case 7: procuraAtraso(contAluno);
 		break;
 		case 8: consultarListaUsuarios(contAluno);
 		break;
