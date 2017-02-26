@@ -18,15 +18,38 @@
 *   - Imprimir lista de disciplinas ministradas por um professor
 */
 
+typedef struct alunos talu;
+typedef struct disciplinas tdisc;
+typedef struct professores tprof;
+
+struct alunos
+{
+    int ra;
+    char nome[50];
+}
+
+struct disciplinas
+{
+    int cod;
+    char nome[50];
+    int cod_alunos[50];
+    int cod_prof[50];
+}
+
+struct professores
+{
+    int cod;
+    char nome[50];
+}
 
 
 int main()
 {
-    
+    talu
 
 
     printf("O que deseja fazer? \n");
-    
+
 
 
     return 0;
