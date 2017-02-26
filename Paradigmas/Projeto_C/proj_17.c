@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*  Projeto de cadastro de alunos, disciplinas e professores.
 *   Tarefas:
@@ -26,7 +27,7 @@ struct alunos
 {
     int ra;
     char nome[50];
-}
+};
 
 struct disciplinas
 {
@@ -34,21 +35,66 @@ struct disciplinas
     char nome[50];
     int cod_alunos[50];
     int cod_prof[50];
-}
+};
 
 struct professores
 {
     int cod;
     char nome[50];
+};
+
+int procuraAluno(talu alunos[50], int ra) // Função procura se o ra inserido já existe, se sim, a função retorna -1, se não, retorna a primeira posição disponível
+{
+    for(int i = 0; i < 50; i++)
+    {
+        if()
+    }
+    
+    
 }
+
+void cadastro_aluno(talu alunos[50])
+{
+    int ra;
+    char nome[50];
+    
+    printf("Digite o RA do aluno que quer cadastrar: ");
+    __fpurge(stdin);
+    //fflush(stdin);
+    scanf("%d", &ra);
+    
+    printf("Digite o nome do aluno a ser cadastrado: ")
+    __fpurge(stdin);
+    //fflush(stdin);
+    fgets(nome, 50, stdin);
+    
+    
+    
+}
+
 
 
 int main()
 {
-    talu
+    talu alunos[50];
+    tdisc disciplinas[50];
+    tprof professores[50];
+    int opcao = 1;
+    
 
-
-    printf("O que deseja fazer? \n");
+    while(opcao)
+    {
+        printf("O que deseja fazer? \n");
+        printf("1- Cadastro de alunos\n");
+        printf("2- Cadstro de disciplinas\n");
+        printf("3- Cadastro de professores\n");
+        
+        printf("0- Sair\n");
+        
+        scanf("%d", &opcao);
+        
+        
+    }
 
 
 
