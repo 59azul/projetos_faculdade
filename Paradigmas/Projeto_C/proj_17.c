@@ -4,19 +4,19 @@
 
 /*  Projeto de cadastro de alunos, disciplinas e professores.
 *   Tarefas:
-*   - Cadastro de alunos
-*   - Cadastro de disciplinas
-*   - Cadastro de professores
-*   - Matricular um conjunto de alunos em um conjunto de disciplinas
-*   - Cancelar a matricula de um conjunto de alunos em um conjunto de disciplinas
-*   - Vincular um conjunto de professores à um conjunto de disciplinas
-*   - Imprimir lista de todos os alunos
-*   - Imprimir lista de todas as disciplinas
-*   - Imprimir lista de todos os professores
-*   - Imprimir lista de alunos matriculados em uma disciplina
-*   - Imprimir lista de disciplinas que um aluno está matriculado
-*   - Imprimir lista de professores vinculados à uma disciplina
-*   - Imprimir lista de disciplinas ministradas por um professor
+*   - Cadastro de alunos [v]
+*   - Cadastro de disciplinas [v]
+*   - Cadastro de professores [v]
+*   - Matricular um conjunto de alunos em um conjunto de disciplinas []
+*   - Cancelar a matricula de um conjunto de alunos em um conjunto de disciplinas []
+*   - Vincular um conjunto de professores à um conjunto de disciplinas []
+*   - Imprimir lista de todos os alunos []
+*   - Imprimir lista de todas as disciplinas []
+*   - Imprimir lista de todos os professores []
+*   - Imprimir lista de alunos matriculados em uma disciplina []
+*   - Imprimir lista de disciplinas que um aluno está matriculado []
+*   - Imprimir lista de professores vinculados à uma disciplina []
+*   - Imprimir lista de disciplinas ministradas por um professor []
 */
 
 typedef struct alunos talu;
@@ -65,6 +65,19 @@ void imprimeDisciplinas(tdisc disciplinas[50]){
         }
         printf("Codigo: %d\n", disciplinas[contador].cod);
         printf("Nome: %s\n", disciplinas[contador].nome);
+        contador++;
+    }
+}
+
+void imprimeProfessores(tprof professores[50]){
+    int contador=0;
+    
+    while(contador<50){
+        if(professores[contador].cod==0){
+            break;
+        }
+        printf("Codigo: %d\n", professores[contador].cod);
+        printf("Nome: %s\n", professores[contador].nome);
         contador++;
     }
 }
@@ -166,6 +179,54 @@ void cadastro_disc(tdisc disciplinas[50], int contador)
     
 }
 
+int procuraProf(tprof professores[50], int cod)
+{
+    int i;
+    for (i = 0; i < 50; i++) 
+    {
+        if(professores[i].cod == 0) return 1;
+        if(professores[i].cod == cod) return 0;
+    }
+    return 1;
+}
+
+void cadastro_prof(tprof professores[50], int contador)
+{
+    int cod, verifica = 0;
+    char nome[50];
+    
+    do{
+        printf("Digite o codigo do professor que quer cadastrar: ");
+        __fpurge(stdin);
+        //fflush(stdin);
+        scanf("%d", &cod);
+        
+        verifica = procuraProf(professores, cod);
+        
+        if(verifica)
+        {
+            printf("Digite o nome do professor a ser cadastrado: ");
+            __fpurge(stdin);
+            //fflush(stdin);
+            fgets(nome, 50, stdin);
+            
+            professores[contador].cod = cod;
+            strcpy(professores[contador].nome, nome);
+            
+            printf("Professor cadastrado com sucesso.\n");
+        }
+        else
+        {
+            printf("O codigo digitado ja existe, por favor digite outro codigo.\n");
+        }
+        
+        
+    }while(verifica==0);
+    
+    
+    
+}
+
 
 int main()
 {
@@ -173,7 +234,7 @@ int main()
     tdisc disciplinas[50];
     tprof professores[50];
     int opcao = 1;
-    int contAlunos = 0, contDisc = 0;
+    int contAlunos = 0, contDisc = 0, contProf = 0;
     
 
     while(opcao)
@@ -184,6 +245,8 @@ int main()
         printf("3- Cadastro de professores\n");
         
         printf("0- Sair\n");
+        __fpurge(stdin);
+        //fflush(stdin);
         scanf("%d", &opcao);
         
         switch(opcao)
@@ -194,8 +257,13 @@ int main()
             case 2: cadastro_disc(disciplinas, contDisc);
             contDisc++;
             break;
-            case 11: imprimeAlunos(alunos);
-            imprimeDisciplinas(disciplinas);
+            case 3: cadastro_prof(professores, contProf);
+            contProf++;
+            case 7: imprimeAlunos(alunos);
+            break;
+            case 8: imprimeDisciplinas(disciplinas);
+            break;
+            case 9: imprimeProfessores(professores);
             break;
             default: break;
         }
