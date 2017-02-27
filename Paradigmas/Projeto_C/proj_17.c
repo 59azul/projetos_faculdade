@@ -56,6 +56,19 @@ void imprimeAlunos(talu alunos[50]){
     }
 }
 
+void imprimeDisciplinas(tdisc disciplinas[50]){
+    int contador=0;
+    
+    while(contador<50){
+        if(disciplinas[contador].cod==0){
+            break;
+        }
+        printf("Codigo: %d\n", disciplinas[contador].cod);
+        printf("Nome: %s\n", disciplinas[contador].nome);
+        contador++;
+    }
+}
+
 int procuraAluno(talu alunos[50], int ra) // Função procura se o ra inserido já existe, se sim, a função retorna 0, se não, retorna 1
 {
     int i;
@@ -77,12 +90,12 @@ void cadastro_aluno(talu alunos[50], int contador)
     char nome[50];
     do{
     
-    printf("Digite o RA do aluno que quer cadastrar: ");
-    __fpurge(stdin);
-    //fflush(stdin);
-    scanf("%d", &ra);
-    
-    verifica = procuraAluno(alunos, ra);
+        printf("Digite o RA do aluno que quer cadastrar: ");
+        __fpurge(stdin);
+        //fflush(stdin);
+        scanf("%d", &ra);
+        
+        verifica = procuraAluno(alunos, ra);
         
         if(verifica)
         {
@@ -105,6 +118,53 @@ void cadastro_aluno(talu alunos[50], int contador)
     
 }
 
+int procuraDisc(tdisc disciplinas[50], int cod)
+{
+    int i;
+    for (i = 0; i < 50; i++) 
+    {
+        if(disciplinas[i].cod == 0) return 1;
+        if(disciplinas[i].cod == cod) return 0;
+    }
+    return 1;
+}
+
+void cadastro_disc(tdisc disciplinas[50], int contador)
+{
+    int cod, verifica = 0;
+    char nome[50];
+    
+    do{
+        printf("Digite o codigo da disciplina que quer cadastrar: ");
+        __fpurge(stdin);
+        //fflush(stdin);
+        scanf("%d", &cod);
+        
+        verifica = procuraDisc(disciplinas, cod);
+        
+        if(verifica)
+        {
+            printf("Digite o nome da disciplina a ser cadastrada: ");
+            __fpurge(stdin);
+            //fflush(stdin);
+            fgets(nome, 50, stdin);
+            
+            disciplinas[contador].cod = cod;
+            strcpy(disciplinas[contador].nome, nome);
+            
+            printf("Disciplina cadastrada com sucesso.\n");
+        }
+        else
+        {
+            printf("O codigo digitado ja existe, por favor digite outro codigo.\n");
+        }
+        
+        
+    }while(verifica==0);
+    
+    
+    
+}
 
 
 int main()
@@ -113,7 +173,7 @@ int main()
     tdisc disciplinas[50];
     tprof professores[50];
     int opcao = 1;
-    int contAlunos = 0;
+    int contAlunos = 0, contDisc = 0;
     
 
     while(opcao)
@@ -131,7 +191,11 @@ int main()
             case 1: cadastro_aluno(alunos, contAlunos);
             contAlunos++;
             break;
+            case 2: cadastro_disc(disciplinas, contDisc);
+            contDisc++;
+            break;
             case 11: imprimeAlunos(alunos);
+            imprimeDisciplinas(disciplinas);
             break;
             default: break;
         }
