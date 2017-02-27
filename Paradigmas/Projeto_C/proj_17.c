@@ -43,32 +43,65 @@ struct professores
     char nome[50];
 };
 
-int procuraAluno(talu alunos[50], int ra) // Função procura se o ra inserido já existe, se sim, a função retorna -1, se não, retorna a primeira posição disponível
-{
-    for(int i = 0; i < 50; i++)
-    {
-        if()
+void imprimeAlunos(talu alunos[50]){
+    int contador=0;
+    
+    while(contador<50){
+        if(alunos[contador].ra==0){
+            break;
+        }
+        printf("RA: %d\n", alunos[contador].ra);
+        printf("Nome: %s\n", alunos[contador].nome);
+        contador++;
     }
-    
-    
 }
 
-void cadastro_aluno(talu alunos[50])
+int procuraAluno(talu alunos[50], int ra) // Função procura se o ra inserido já existe, se sim, a função retorna 0, se não, retorna 1
 {
-    int ra;
+    int i;
+    for(i = 0; i < 50; i++)
+    {
+        if(alunos[i].ra == 0) return 1;
+        if(alunos[i].ra == ra)
+        {
+            return 0;
+        }
+    }
+    
+    return 1;
+}
+
+void cadastro_aluno(talu alunos[50], int contador)
+{
+    int ra, verifica=0;
     char nome[50];
+    do{
     
     printf("Digite o RA do aluno que quer cadastrar: ");
     __fpurge(stdin);
     //fflush(stdin);
     scanf("%d", &ra);
     
-    printf("Digite o nome do aluno a ser cadastrado: ")
-    __fpurge(stdin);
-    //fflush(stdin);
-    fgets(nome, 50, stdin);
+    verifica = procuraAluno(alunos, ra);
+        
+        if(verifica)
+        {
+            printf("Digite o nome do aluno a ser cadastrado: ");
+            __fpurge(stdin);
+            //fflush(stdin);
+            fgets(nome, 50, stdin);
+            
+            alunos[contador].ra = ra;
+            strcpy(alunos[contador].nome, nome);
+            
+            printf("Aluno cadastrado com sucesso.\n");
+        }
+        else
+        {
+            printf("O ra digitado já existe, por favor digite outro ra.\n");
+        }
     
-    
+    }while(verifica == 0);
     
 }
 
@@ -80,6 +113,7 @@ int main()
     tdisc disciplinas[50];
     tprof professores[50];
     int opcao = 1;
+    int contAlunos = 0;
     
 
     while(opcao)
@@ -90,8 +124,18 @@ int main()
         printf("3- Cadastro de professores\n");
         
         printf("0- Sair\n");
-        
         scanf("%d", &opcao);
+        
+        switch(opcao)
+        {
+            case 1: cadastro_aluno(alunos, contAlunos);
+            contAlunos++;
+            break;
+            case 11: imprimeAlunos(alunos);
+            break;
+            default: break;
+        }
+        
         
         
     }
