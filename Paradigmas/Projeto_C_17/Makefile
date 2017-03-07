@@ -1,6 +1,6 @@
-all: Aula2
+all: proj_17.exe
 
-Aula2: Exercicios_Aula_2.c
+proj_17.exe: proj_17.c
 	gcc -Wall proj_17.c -o proj_17.exe
 
 run: proj_17.exe

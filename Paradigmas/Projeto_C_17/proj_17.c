@@ -131,7 +131,7 @@ void cadastro_aluno(talu alunos[50], int contador)
     
 }
 
-int procuraDisc(tdisc disciplinas[50], int cod)
+int procuraDisc(tdisc disciplinas[50], int cod) // Função procura se o código inserido já existe, se sim retorna 0, se não retorna 1
 {
     int i;
     for (i = 0; i < 50; i++) 
@@ -179,7 +179,7 @@ void cadastro_disc(tdisc disciplinas[50], int contador)
     
 }
 
-int procuraProf(tprof professores[50], int cod)
+int procuraProf(tprof professores[50], int cod) // Função procura se o código já existe, se sim retorna 0, se não retorna 1
 {
     int i;
     for (i = 0; i < 50; i++) 
@@ -227,6 +227,13 @@ void cadastro_prof(tprof professores[50], int contador)
     
 }
 
+void matriculaAlunos(tdisc disciplinas[50], int contAlu, int contDisc) // Função vincula alunos a disciplinas, através do vetor de ras que disciplinas possuem
+{
+    
+    
+    
+    
+}
 
 int main()
 {
@@ -243,6 +250,10 @@ int main()
         printf("1- Cadastro de alunos\n");
         printf("2- Cadstro de disciplinas\n");
         printf("3- Cadastro de professores\n");
+        
+        printf("7- Imprimir lista de alunos\n");
+        printf("8- Imprimir lista de disciplinas\n");
+        printf("9- Imprimir lista de professores\n");
         
         printf("0- Sair\n");
         __fpurge(stdin);
