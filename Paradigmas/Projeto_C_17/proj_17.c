@@ -311,6 +311,7 @@ void matriculaAlunos(tdisc disciplinas[50], talu alunos[50], int contAlu, int co
                     disciplinas[posDisc].aluMatri++;            // Utiliza a variável aluMatri da estrutura de disciplinas para controlar 
                                                                 // o número de alunos matriculados em uma disciplina
                 }
+                numDisc++;
             }
             else
             {
@@ -365,9 +366,10 @@ void matriculaProf(tdisc disciplinas[50], tprof professores[50], int contProf, i
                 {
                     disciplinas[posDisc].cod_prof[disciplinas[posDisc].profMatri] = vetPro[aux];   
                                                                 // Insere o código de um professor do vetor de professores selecionados no vetor de códigos de uma disciplina
-                    disciplinas[posDisc].profMatri++;            // Utiliza a variável proMatri da estrutura de disciplinas para controlar 
+                    disciplinas[posDisc].profMatri++;            // Utiliza a variável profMatri da estrutura de disciplinas para controlar 
                                                                 // o número de professores matriculados em uma disciplina
                 }
+                numDisc++;
             }
             else
             {
@@ -430,7 +432,159 @@ void imprimeProfEmDisc(tdisc disciplinas[50], tprof professores[50])
     }
 }
 
+void reordenaVet(int ras[50])
+{
+    int i=0, aux = 0;
+    
+    for (i = 0; i < 49; i++) 
+    {
+        if(ras[i] == 0)
+        {
+            if(ras[i+1] == 0) break;
+            aux = ras[i];
+            ras[i] =  ras[i+1];
+            ras[i+1] = aux;
+        }
+    }
+    
+}
 
+void cancelaMatricula(tdisc disciplinas[50], talu alunos[50], int contAlu, int contDisc)
+{
+    int numAlunos = 0, numDisc = 0, posDisc = 0, aux = 0, i=0;
+    
+    int vetAlu[50];
+    int verifica=1;
+    
+    while(verifica && (contAlu > numAlunos))
+    {
+        printf("Se quiser cancelar a matricula de um aluno, digite seu ra, se nao digite 0 para prosseguir.\n");
+        __fpurge(stdin);
+        //fflush(stdin);
+        scanf("%d", &verifica);
+        if(verifica)
+        {
+            if(!procuraAluno(alunos, verifica)) 
+            {
+                vetAlu[numAlunos] = verifica;
+                numAlunos++;
+            }
+            else
+            {
+                printf("Nao existe um aluno com esse ra.");
+            }
+        }
+    }
+    
+    verifica = 1;
+    
+    while(verifica && (contDisc > numDisc))
+    {
+        printf("Digite o codigo da disciplina em que os alunos serao removidos, ou digite 0 quando finalizar.\n");
+        __fpurge(stdin);
+        //fflush(stdin);
+        scanf("%d", &verifica);
+        if(verifica)
+        {
+            if(!procuraDisc(disciplinas, verifica))             // Verifica se existe uma disciplina com o código digitado
+            {
+                posDisc = encontrarDisc(disciplinas, verifica); // posDisc guarda a posição no vetor da disciplina com o código digitado
+                
+                for(aux = 0; aux < numAlunos; aux++)
+                {
+                    for(i = 0; i < disciplinas[posDisc].aluMatri; i++)
+                    {
+                        if(disciplinas[posDisc].cod_alunos[i] == vetAlu[aux])
+                        {
+                            disciplinas[posDisc].cod_alunos[i] = 0;
+                            reordenaVet(disciplinas[posDisc].cod_alunos);
+                            disciplinas[posDisc].aluMatri--;
+                        }
+                    }
+                }
+                numDisc++;
+            }
+            else
+            {
+                printf("Nao existe uma disciplina com esse codigo.\n");
+            }
+        }
+    }
+    
+    
+    
+}
+
+void imprimeDiscEmAlu(tdisc disciplinas[50], talu alunos[50], int contDisc)
+{
+    int ra, i =0, j = 0;
+    
+    printf("Digite o ra do aluno: ");
+    __fpurge(stdin);
+    //fflush(stdin);
+    scanf("%d", &ra);
+    
+    if(!procuraAluno(alunos, ra))
+    {
+        for (i = 0; i < contDisc; i++) 
+        {
+            for(j = 0; j < disciplinas[i].aluMatri; j++)    // Loop externo controla vetor de structs de disciplinas e loop interno controla vetor de RAs em cada disciplina
+            {
+                if(disciplinas[i].cod_alunos[j] == ra)
+                {
+                    printf("Nome da disciplina: %s", disciplinas[i].nome);
+                    printf("Codigo da disciplina: %d\n", disciplinas[i].cod);
+                    break;
+                }
+                
+                
+            }
+        }
+        
+        
+    }
+    else
+    {
+        printf("Aluno nao encontrado.\n");
+    }
+    
+}
+
+void imprimeDiscEmProf(tdisc disciplinas[50], tprof professores[50], int contDisc)
+{
+    int cod, i = 0, j = 0;
+    
+    printf("Digite o codigo do professor: ");
+    __fpurge(stdin);
+    //fflush(stdin);
+    scanf("%d", &cod);
+    
+    if(!procuraProf(professores, cod))
+    {
+        for (i = 0; i < contDisc; i++) 
+        {
+            for(j = 0; j < disciplinas[i].profMatri; j++)    // Loop externo controla vetor de structs de disciplinas e loop interno controla vetor de codigos em cada disciplina
+            {
+                if(disciplinas[i].cod_prof[j] == cod)
+                {
+                    printf("Nome da disciplina: %s", disciplinas[i].nome);
+                    printf("Codigo da disciplina: %d\n", disciplinas[i].cod);
+                    break;
+                }
+                
+                
+            }
+        }
+        
+        
+    }
+    else
+    {
+        printf("Professor nao encontrado.\n");
+    }
+    
+    
+}
 
 
 int main()
@@ -448,12 +602,15 @@ int main()
         printf("2-  Cadstro de disciplinas\n");
         printf("3-  Cadastro de professores\n");
         printf("4-  Matricular grupo de alunos em um grupo de disciplinas\n");
+        printf("5-  Cancelar a matricula de um grupo de alunos em um grupo de disciplinas\n");
         printf("6-  Vincular um grupo de professores em um grupo de disciplinas\n");
         printf("7-  Imprimir lista de alunos\n");
         printf("8-  Imprimir lista de disciplinas\n");
         printf("9-  Imprimir lista de professores\n");
         printf("10- Imprimir lista de alunos matriculados em uma disciplina\n");
-        printf("11- Imprimir lista de professores vinculados a uma disciplina\n");
+        printf("11- Imprimir lista de disciplinas de um aluno\n");
+        printf("12- Imprimir lista de disciplinas vinculadas a um professor\n");
+        printf("13- Imprimir lista de professores vinculados a uma disciplina\n");
         printf("0-  Sair\n");
         __fpurge(stdin);
         //fflush(stdin);
@@ -472,6 +629,8 @@ int main()
             break;
             case 4: matriculaAlunos(disciplinas, alunos, contAlunos, contDisc);
             break;
+            case 5: cancelaMatricula(disciplinas, alunos, contAlunos, contDisc);
+            break;
             case 6: matriculaProf(disciplinas, professores, contProf, contDisc);
             break;
             case 7: imprimeAlunos(alunos);
@@ -482,7 +641,11 @@ int main()
             break;
             case 10: imprimeAluEmDisc(disciplinas, alunos);
             break;
-            case 11: imprimeProfEmDisc(disciplinas, professores);
+            case 11: imprimeDiscEmAlu(disciplinas, alunos, contDisc);
+            break;
+            case 12: imprimeDiscEmProf(disciplinas, professores, contDisc);
+            break;
+            case 13: imprimeProfEmDisc(disciplinas, professores);
             default: break;
         }
         
