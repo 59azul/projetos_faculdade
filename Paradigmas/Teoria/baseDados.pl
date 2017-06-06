@@ -63,3 +63,10 @@ conc([X|L1],L2,[X|L]) :-
     conc(L1,L2,L).
 
 acrescentar(X,L,[X|L]).
+
+menor(X,Y,X) :- X<Y, !.
+menor(_,Y,Y).
+
+menordalista(M,[M|[]]).
+menordalista(M1,[Head|Tail]):- menordalista(M,Tail),
+	menor(M,Head, M1).
