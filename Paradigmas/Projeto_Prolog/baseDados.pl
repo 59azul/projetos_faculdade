@@ -29,7 +29,8 @@ menor(_,Y,Y).
 pertence_lista(X,[X|_]).
 pertence_lista(X,[_|Cauda]) :- pertence_lista(X,Cauda).
 
-voo_direto(Origem, Destino, Companhia, Dia, Horario_h, Horario_min) :-	% funcao verifica se existe algum voo entre as cidades origem e destino em que o numero de escalas eh 0
+voo_direto(Origem, Destino, Companhia, Dia, Horario_h, Horario_min) :-	% funcao verifica se existe algum voo entre
+	% as cidades origem e destino em que o numero de escalas é 0
 	voo(Origem, Destino, _, Horario_h, Horario_min, _, _, 0, Companhia, Lista),
         pertence_lista(Dia, Lista).
 
@@ -37,12 +38,17 @@ roteiro(Origem, Destino, Codigo) :- voo(Origem, Destino, Codigo, _, _, _, _, _, 
 roteiro(Origem, Destino, Codigo) :- voo(Origem, Conexao, Codigo, _, _, _, _, _, _),
 		roteiro(Conexao,Destino, Codigo).
 
-filtra_voo_dia_semana(Origem, Destino, DiaSemana, HorarioSaida_h,	% funcao verifica se existe algum voo direto entre as cidades origem e destino e mostra os horarios de saida e chegada, o dia da semana e a companhia
+filtra_voo_dia_semana(Origem, Destino, DiaSemana, HorarioSaida_h,	% funcao verifica se existe algum voo direto
+		      % entre as cidades origem e destino e mostra os horarios de saida e chegada, o dia da semana e a companhia
 HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :- voo(Origem, Destino, _, HorarioSaida_h, HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, 0, Companhia, Lista),
 			pertence_lista(DiaSemana, Lista).
 
-%menorDuracao(Origem, Destino, Dia, HorarioSaida_h, HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :-
-%				voo(Origem,Destino, _, HorarioSaida_h, HorarioSaida_min, ())
+duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-
+
+
+menorDuracao(Origem, Destino, Dia, HorarioSaida_h, HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :-
+				filtra_voo_dia_semana(Origem, Destino, Dia, HorarioSaida_h, HorarioSaida_min,
+						      HorarioChegada_h, HorarioChegada_min, Companhia).
 
 menordalista(M,[M|[]]).
 menordalista(M1,[Head|Tail]):- menordalista(M,Tail),
