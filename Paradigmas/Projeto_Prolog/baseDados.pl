@@ -40,10 +40,25 @@ roteiro(Origem, Destino, Codigo) :- voo(Origem, Conexao, Codigo, _, _, _, _, _, 
 
 filtra_voo_dia_semana(Origem, Destino, DiaSemana, HorarioSaida_h,	% funcao verifica se existe algum voo direto
 		      % entre as cidades origem e destino e mostra os horarios de saida e chegada, o dia da semana e a companhia
-HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :- voo(Origem, Destino, _, HorarioSaida_h, HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, 0, Companhia, Lista),
-			pertence_lista(DiaSemana, Lista).
+HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :- voo(Origem, Destino, _, HorarioSaida_h,
+HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, 0, Companhia, Lista), pertence_lista(DiaSemana, Lista).
 
-duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-
+duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-	Hora_f < Hora_i,
+																													Min_f < Min_i,
+
+																													Dura_h is Hora_f + 23 - Hora_i,
+																													Dura_m is Min_f + 60 - Min_i,
+																													!.
+duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-	Hora_f < Hora_i,
+																													
+																													Dura_h is Hora_f + 24 - Hora_i,
+																													Dura_m is Min_f - Min_i, !.
+duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-	Min_f < Min_i,
+
+																													Dura_h is Hora_f - 1 - Hora_i,
+																													Dura_m is Min_f + 60 - Min_i, !.
+duracao(Hora_i, Min_i, Hora_f, Min_f, Dura_h, Dura_m) :-	Dura_h is Hora_f - Hora_i,
+																													Dura_m is Min_f - Min_i.
 
 
 menorDuracao(Origem, Destino, Dia, HorarioSaida_h, HorarioSaida_min, HorarioChegada_h, HorarioChegada_min, Companhia) :-
