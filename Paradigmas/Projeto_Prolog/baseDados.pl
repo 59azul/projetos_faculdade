@@ -102,11 +102,12 @@ duracao(Hora_i:Min_i,  Hora_f:Min_f,  Dura_h:Dura_m) :-
 
 
 menorDuracao(Origem,  Destino,  Dia,  HorarioSaida,  HorarioChegada,  Companhia,  ListaDuracoes) :-
-	voo(Origem,  Destino,  Codigo,  HorarioSaida, HorarioChegada,  0,  Companhia,  Lista),
-	pertence_lista(Dia,  Lista),
-	duracao(HorarioSaida, HorarioChegada,  Duracao),
-	listaDuracao([Duracao|Codigo], [], ListaDuracoes).
+	filtra_voo_dia_semana(Origem, Destino, Dia, HorarioSaida, HorarioChegada, Companhia),
+	duracao(HorarioSaida, HorarioChegada,  Duracao).
 
+roteiro(Origem, Destino, DiaSaida, HorarioSaida, Duracao) :-
+	filtra_voo_dia_semana(Origem, Destino, Dia, HorarioSaida, HorarioChegada, Companhia),
+	duracao(HorarioSaida, HorarioChegada,  Duracao).
 
 
 
