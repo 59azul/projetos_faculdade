@@ -1,0 +1,20 @@
+body {
+    background-color: #14152a;
+    color: #b5b0b7;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+}
+
+header {
+    text-align: center;
+}
