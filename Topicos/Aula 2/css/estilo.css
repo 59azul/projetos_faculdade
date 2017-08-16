@@ -1,0 +1,25 @@
+body {
+    background-color: #005a9b;
+    color: #000000;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    margin-left: 20px;
+    background-image: url(../imagens/background.png);
+}
+
+.divImgFundo {
+    border: 1px solid;
+    width: 1500px;
+    height: 300px;
+    position: static;
+}
+
+.divImgPerf {
+    border: 1px solid;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50px;
+    top: 200px;
+    
+}
