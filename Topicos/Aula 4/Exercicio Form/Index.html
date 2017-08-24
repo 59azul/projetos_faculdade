@@ -12,14 +12,45 @@
 
 
         <form name="FormTeste">
-            <h1>Dados Pessoais</h1>
-            <div class="nomeCampo">
-                Nome
+            <h1>1. Dados Pessoais</h1>
+            <div class="formularios">
+
+                <div class="CampoTexto">
+                    <input type="text" name="campoNome" placeholder="Digite seu nome">
+                </div>
+                <div class="nomeCampo">
+                    Nome
+                </div>
+                <div class="CampoDate">
+                    <input type="date" name="dataNasc">
+                </div>
+                <div class="nomeCampo">
+                    Data de Nascimento
+                </div>
+                <div class="CampoSelect">
+                    <select name="estadoCivil" >
+                        <option value="Solteiro(a)">Solteiro(a)</option>
+                        <option value="Casado(a)">Casado(a)</option>
+                        <option value="Viúvo(a)">Viúvo(a)</option>
+                        <option value="Divorciado(a)">Divorciado(a)</option>
+                    </select>
+                </div>
+                <div class="nomeCampo">
+                    Estado Civil
+                </div>
+                <div class="CampoRadio">
+                    <input type="radio" name="sexo" value="Masculino">Masculino
+                    <input type="radio" name="sexo" value="Feminino">Feminino
+                </div>
+                <div class="nomeCampo">
+                    Sexo
+                </div>
+
             </div>
-            <div class="Campo">
-                <input type="text">
-                
-            </div>
+
+            <h1>2. Objetivo</h1>
+
+
 
         </form>
 
