@@ -91,3 +91,19 @@ h2 {
 .nomeCampoRedeSocial {
     padding: 3.4% 1% 3.4% 1%
 }
+
+.CampoLinguagens {
+    float: right;
+    width: 70.7%;
+    padding: 1% 1% 0.8% 1%;
+    background-color: royalblue;
+    border: 1px;
+}
+
+.nomeCampoLinguagens {
+    padding: 6.2% 1% 6.2% 1%
+}
+
+.botoes {
+    
+}
