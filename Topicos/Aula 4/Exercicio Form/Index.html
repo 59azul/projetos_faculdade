@@ -10,9 +10,9 @@
 <body>
     <div class="container">
 
-
+        <h1>Cadastre seu currículo</h1>
         <form name="FormTeste">
-            <h1>1. Dados Pessoais</h1>
+            <h2>1. Dados Pessoais</h2>
             <div class="formularios">
 
                 <div class="CampoTexto">
@@ -28,7 +28,7 @@
                     Data de Nascimento
                 </div>
                 <div class="CampoSelect">
-                    <select name="estadoCivil" >
+                    <select name="estadoCivil">
                         <option value="Solteiro(a)">Solteiro(a)</option>
                         <option value="Casado(a)">Casado(a)</option>
                         <option value="Viúvo(a)">Viúvo(a)</option>
@@ -48,10 +48,62 @@
 
             </div>
 
-            <h1>2. Objetivo</h1>
+            <h2>2. Objetivo</h2>
 
-
-
+            <div class="formularios">
+                <div class="CampoTextArea">
+                    <textarea name="" id="" cols="40" rows="3" placeholder="Digite seu objetivo"></textarea>
+                </div>
+                <div class="nomeCampo nomeCampoTextArea">
+                    Objetivo
+                </div>
+            </div>
+            
+            <h2>3. Contato</h2>            
+            <div class="formularios">
+                <div class="CampoTexto">
+                    <input type="text" name="campoEndereco" placeholder="Digite seu endereço">
+                </div>
+                <div class="nomeCampo">
+                    Endereço
+                </div>
+                <div class="CampoTexto">
+                    <input type="text" name="campoCidade" placeholder="Digite sua cidade"> / 
+                    <input type="text" name="campoEstado" placeholder="Digite seu estado">
+                </div>
+                <div class="nomeCampo">
+                    Cidade/Estado
+                </div>
+                <div class="CampoTexto">
+                    <input type="text" name="campoCEP" placeholder="Digite seu CEP no formato 99999-999">
+                </div>
+                <div class="nomeCampo">
+                    CEP
+                </div>
+                <div class="CampoTexto">
+                    <input type="text" name="campoTel" placeholder="Digite seu telefone no formato (99) 9999-9999">
+                </div>
+                <div class="nomeCampo">
+                    Telefone
+                </div>
+                <div class="CampoTexto">
+                    <input type="text" name="campoEmail" placeholder="Digite seu e-mail">
+                </div>
+                <div class="nomeCampo">
+                    E-Mail
+                </div>
+                <div class="CampoRedeSocial">
+                    <img src="imagens/face.png" alt="Facebook"> htttp://facebook.com/
+                    <input type="text" name="campoFacebook" placeholder="Perfil Facebook"> <br>
+                    <img src="imagens/linkedin.png" alt="Linkedin"> http://linkedin.com/<input type="text" name="campoLinkedin" placeholder="Perfil linkedin"> <br>
+                    <img src="imagens/skype.png" alt="Skype"> <input type="text" name="campoSkype" placeholder="Perfil Skype">
+                </div>
+                <div class="nomeCampo nomeCampoRedeSocial">
+                    Redes Sociais
+                </div>
+            </div>
+            <h2>4. Conhecimentos</h2>
+            
         </form>
 
     </div>
