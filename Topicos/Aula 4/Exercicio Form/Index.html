@@ -16,7 +16,7 @@
             <div class="formularios">
 
                 <div class="CampoTexto">
-                    <input type="text" name="campoNome" placeholder="Digite seu nome">
+                    <input type="text" name="campoNome" placeholder="Digite seu nome" required>
                 </div>
                 <div class="nomeCampo">
                     Nome
@@ -52,7 +52,7 @@
 
             <div class="formularios">
                 <div class="CampoTextArea">
-                    <textarea name="" id="" cols="40" rows="3" placeholder="Digite seu objetivo"></textarea>
+                    <textarea name="" id="" cols="40" rows="3" placeholder="Digite seu objetivo" required></textarea>
                 </div>
                 <div class="nomeCampo nomeCampoTextArea">
                     Objetivo
@@ -62,32 +62,32 @@
             <h2>3. Contato</h2>
             <div class="formularios">
                 <div class="CampoTexto">
-                    <input type="text" name="campoEndereco" placeholder="Digite seu endereço">
+                    <input type="text" name="campoEndereco" placeholder="Digite seu endereço" required>
                 </div>
                 <div class="nomeCampo">
                     Endereço
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoCidade" placeholder="Digite sua cidade"> /
-                    <input type="text" name="campoEstado" placeholder="Digite seu estado">
+                    <input type="text" name="campoCidade" placeholder="Digite sua cidade" required> /
+                    <input type="text" name="campoEstado" placeholder="Digite seu estado" required maxlength="2">
                 </div>
                 <div class="nomeCampo">
                     Cidade/Estado
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoCEP" placeholder="Digite seu CEP no formato 99999-999">
+                    <input type="text" name="campoCEP" placeholder="Digite seu CEP no formato 99999-999" required>
                 </div>
                 <div class="nomeCampo">
                     CEP
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoTel" placeholder="Digite seu telefone no formato (99) 9999-9999">
+                    <input type="text" name="campoTel" placeholder="Digite seu telefone no formato (99) 9999-9999" required>
                 </div>
                 <div class="nomeCampo">
                     Telefone
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoEmail" placeholder="Digite seu e-mail">
+                    <input type="text" name="campoEmail" placeholder="Digite seu e-mail" required>
                 </div>
                 <div class="nomeCampo">
                     E-Mail
@@ -123,8 +123,7 @@
                         <option value="Básico">Básico</option>
                         <option value="Intermediário">Intermediário</option>
                         <option value="Avançado">Avançado</option>
-                    </select>
-                    | Espanhol 
+                    </select> | Espanhol
                     <select name="espanhol">
                         <option value="Nível">Nível</option>
                         <option value="Básico">Básico</option>
@@ -136,8 +135,7 @@
                     Idiomas
                 </div>
             </div>
-            <input type="reset" name="limpar" value="Limpar" class="botoes">
-            |
+            <input type="reset" name="limpar" value="Limpar" class="botoes"> |
             <input type="submit" name="enviar" value="Enviar" class="botoes">
         </form>
 

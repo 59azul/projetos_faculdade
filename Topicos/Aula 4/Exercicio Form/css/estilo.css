@@ -105,5 +105,22 @@ h2 {
 }
 
 .botoes {
-    
+    background-color: deepskyblue;
+    border-color: darkslateblue;
+    width: 10%;
+    font-size: 1.1em
 }
+
+input:required:invalid, input:focus:invalid {
+    background-image: url(../imagens/wrong.gif);
+    background-repeat: no-repeat;
+    background-position: right
+}
+
+input:required:valid {
+    background-image: url(../imagens/check.png);
+    background-repeat: no-repeat;
+    background-position: right
+}
+
+
