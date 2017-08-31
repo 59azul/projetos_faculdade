@@ -69,13 +69,13 @@
                 </div>
                 <div class="CampoTexto">
                     <input type="text" name="campoCidade" placeholder="Digite sua cidade" required> /
-                    <input type="text" name="campoEstado" placeholder="Digite seu estado" required maxlength="2">
+                    <input type="text" name="campoEstado" placeholder="Digite seu estado" required maxlength="2" pattern="[A-Z]{2}">
                 </div>
                 <div class="nomeCampo">
                     Cidade/Estado
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoCEP" placeholder="Digite seu CEP no formato 99999-999" required>
+                    <input type="text" name="campoCEP" placeholder="Digite seu CEP no formato 99999-999" required pattern="[0-9]{5}[\-]?[0-9]{3}">
                 </div>
                 <div class="nomeCampo">
                     CEP
@@ -87,7 +87,7 @@
                     Telefone
                 </div>
                 <div class="CampoTexto">
-                    <input type="text" name="campoEmail" placeholder="Digite seu e-mail" required>
+                    <input type="email" name="campoEmail" placeholder="Digite seu e-mail" required>
                 </div>
                 <div class="nomeCampo">
                     E-Mail

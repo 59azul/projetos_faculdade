@@ -97,7 +97,7 @@ h2 {
     width: 70.7%;
     padding: 1% 1% 0.8% 1%;
     background-color: royalblue;
-    border: 1px;
+    border: 1px
 }
 
 .nomeCampoLinguagens {
@@ -123,4 +123,14 @@ input:required:valid {
     background-position: right
 }
 
+textarea:required:invalid, textarea:focus:invalid {
+    background-image: url(../imagens/wrong.gif);
+    background-repeat: no-repeat;
+    background-position: right
+}
 
+textarea:required:valid {
+    background-image: url(../imagens/check.png);
+    background-repeat: no-repeat;
+    background-position: right
+}
