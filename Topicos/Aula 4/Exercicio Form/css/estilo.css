@@ -7,7 +7,7 @@ body,
 html {
     font-family: Verdana, Geneva, sans-serif;
     height: 100%;
-    background-color: #242426;
+    background-color: midnightblue;
     color: ghostwhite;
 }
 
@@ -30,88 +30,66 @@ h2 {
 }
 
 .nomeCampo {
-    padding: 1%;
+    height: 40px;
     width: 25%;
-    background-color: midnightblue;
-    border: 1px;
-}
-
-.CampoSelect {
-    float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.8% 1%;
-    background-color: royalblue;
-    border: 1px;
+    padding: 1% 1%;
+    background-color: mediumblue;
 }
 
 .CampoTexto {
     float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.8% 1%;
+    width: 70%;
+    padding: 1%;
+    height: 40px;
     background-color: royalblue;
-    border: 1px;
-}
-
-.CampoDate {
-    float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.5% 1%;
-    background-color: royalblue;
-    border: 1px;
-}
-
-.CampoRadio {
-    float: right;
-    width: 70.7%;
-    padding: 1% 1% 1% 1%;
-    background-color: royalblue;
-    border: 1px;
 }
 
 .CampoTextArea {
     float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.8% 1%;
+    width: 70%;
+    height: 70px;
+    padding: 1%;
     background-color: royalblue;
-    border: 1px;
 }
 
 .nomeCampoTextArea {
-    padding: 2.6% 1% 2.6% 1%
+    height: 70px
 }
 
 .CampoRedeSocial {
     float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.8% 1%;
+    width: 70%;
+    height: 70px;
+    padding: 1%;
     background-color: royalblue;
-    border: 1px;
 }
 
 .nomeCampoRedeSocial {
-    padding: 3.4% 1% 3.4% 1%
+    padding: 1%;
+    height: 70px;
 }
 
 .CampoLinguagens {
     float: right;
-    width: 70.7%;
-    padding: 1% 1% 0.8% 1%;
+    width: 70%;
+    padding: 1%;
     background-color: royalblue;
-    border: 1px
+    height: 130px
 }
 
 .nomeCampoLinguagens {
-    padding: 6.2% 1% 6.2% 1%
+    padding: 1%;
+    height: 130px;
 }
 
 .botoes {
     background-color: deepskyblue;
     border-color: darkslateblue;
-    width: 10%;
-    font-size: 1.1em
+    width: 15%;
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid,
+input:focus:invalid {
     background-image: url(../imagens/wrong.gif);
     background-repeat: no-repeat;
     background-position: right
@@ -123,7 +101,8 @@ input:required:valid {
     background-position: right
 }
 
-textarea:required:invalid, textarea:focus:invalid {
+textarea:required:invalid,
+textarea:focus:invalid {
     background-image: url(../imagens/wrong.gif);
     background-repeat: no-repeat;
     background-position: right
